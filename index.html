@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pivotext — bookkeeping for funded traders</title>
+<meta name="description" content="Track every eval fee, reset and subscription against the account it belongs to. One clean statement for your accountant at month end.">
+<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pivotext">
+<meta property="og:title" content="You know your payouts. Do you know your net?">
+<meta property="og:description" content="Bookkeeping for funded traders. Every eval fee, reset and subscription tracked against the account it belongs to.">
+<meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="You know your payouts. Do you know your net?">
+<meta name="twitter:description" content="Bookkeeping for funded traders. Track what every account actually cost you.">
+<meta name="twitter:image" content="https://REPLACE-WITH-YOUR-DOMAIN/og-image.png">
+<meta name="theme-color" content="#F7F8F4">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231B2420'/%3E%3Ctext x='16' y='23' font-family='Archivo,Arial,sans-serif' font-size='21' font-weight='700' fill='%23F7F8F4' text-anchor='middle'%3Ec%3C/text%3E%3Ccircle cx='25' cy='24' r='2.4' fill='%238E6B15'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F8F4; --band:#E4EBDD; --band-soft:#EFF3EA;
+  --ink:#1B2420; --ink-2:#5A655E; --ink-3:#8A948C;
+  --rule:#C7CFC1; --hair:#DDE3D7;
+  --oxblood:#7C2018; --brass:#8E6B15; --brass-bg:#F3EBD6;
+  --wrap:1080px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;
+  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.eyebrow{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--ink-3)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:rgba(247,248,244,.93);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+.hbar{display:flex;justify-content:space-between;align-items:center;height:58px}
+.mark{font-size:19px;font-weight:700;letter-spacing:-.03em}
+.mark i{color:var(--brass);font-style:normal}
+.hlinks{display:flex;gap:24px;align-items:center}
+.hlinks a{font-size:13.5px;font-weight:500;color:var(--ink-2);text-decoration:none}
+.hlinks a:hover{color:var(--ink)}
+.btn{display:inline-block;font-family:inherit;font-size:13.5px;font-weight:600;
+  padding:9px 18px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+  border-radius:2px;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:#2C3A33}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--band)}
+@media(max-width:700px){.hlinks a.nav{display:none}}
+
+/* hero */
+.hero{padding:74px 0 0}
+.hero h1{font-size:clamp(34px,5.6vw,60px);font-weight:700;letter-spacing:-.042em;
+  line-height:1.03;max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--brass)}
+.hero .sub{font-size:clamp(15px,1.7vw,18px);color:var(--ink-2);max-width:52ch;
+  margin-top:20px;line-height:1.55}
+.cta{display:flex;gap:9px;margin-top:28px;max-width:440px;flex-wrap:wrap}
+.cta input{flex:1 1 210px;font-family:inherit;font-size:14.5px;padding:11px 13px;
+  border:1px solid var(--rule);background:#fff;border-radius:2px;color:var(--ink)}
+.cta .btn{padding:11px 22px;font-size:14px}
+.cta-note{font-size:12.5px;color:var(--ink-3);margin-top:11px}
+.said{font-size:14px;font-weight:600;color:var(--brass);margin-top:26px}
+
+/* chain panel — the signature */
+.panel{border:1px solid var(--rule);background:#fff;margin-top:56px}
+.panel-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--band-soft);flex-wrap:wrap}
+.panel-top .t{font-size:14px;font-weight:600}
+.panel-top .m{font-size:11.5px;color:var(--ink-3);margin-top:1px}
+.chain{display:flex;align-items:stretch;padding:26px 18px 20px;overflow-x:auto}
+.node{flex:0 0 auto;min-width:126px;opacity:0;transform:translateY(6px)}
+.node.on{opacity:1;transform:none;transition:opacity .42s ease,transform .42s ease}
+.node .box{border:1px solid var(--rule);padding:11px 13px 12px;min-height:82px}
+.node.fund .box{border:1.5px solid var(--brass);background:var(--brass-bg)}
+.node .stage{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.node.fund .stage{color:var(--brass)}
+.node .fee{font-size:17px;font-weight:600;margin-top:6px;letter-spacing:-.015em}
+.node .when{font-size:10.5px;color:var(--ink-3);margin-top:3px}
+.node .out{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-top:6px}
+.out.failed{color:var(--oxblood)} .out.passed{color:var(--ink-2)} .out.live{color:var(--brass)}
+.arrow{flex:0 0 28px;display:flex;align-items:center;justify-content:center;
+  color:var(--rule);font-size:14px;padding-top:22px;opacity:0}
+.arrow.on{opacity:1;transition:opacity .3s}
+.cum{text-align:center;font-size:10.5px;color:var(--ink-3);padding-top:8px;
+  border-top:1px solid var(--hair);margin-top:9px}
+.cum b{color:var(--ink-2);font-weight:600}
+.panel-foot{display:flex;border-top:1px solid var(--rule);flex-wrap:wrap}
+.panel-foot div{flex:1 1 150px;padding:15px 18px;border-right:1px solid var(--hair)}
+.panel-foot div:last-child{border-right:none;background:var(--band-soft)}
+.panel-foot .k{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.panel-foot .v{font-size:22px;font-weight:600;letter-spacing:-.025em;margin-top:4px}
+.panel-foot .v.cost{color:var(--oxblood)}
+
+/* sections */
+section{padding:88px 0}
+.shead{max-width:60ch}
+.shead h2{font-size:clamp(25px,3.4vw,36px);font-weight:700;letter-spacing:-.032em;
+  line-height:1.12;margin-top:12px}
+.shead p{font-size:16px;color:var(--ink-2);margin-top:14px;line-height:1.6}
+
+/* problem beats */
+.beats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:0;margin-top:44px;border-top:2px solid var(--ink)}
+.beat{padding:24px 22px 26px;border-right:1px solid var(--hair)}
+.beat:last-child{border-right:none}
+.beat .n{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--brass)}
+.beat h3{font-size:17px;font-weight:600;margin-top:10px;letter-spacing:-.015em}
+.beat p{font-size:14px;color:var(--ink-2);margin-top:8px;line-height:1.55}
+@media(max-width:760px){.beat{border-right:none;border-bottom:1px solid var(--hair)}
+  .beat:last-child{border-bottom:none}}
+
+/* previews */
+.shot{border:1px solid var(--rule);background:#fff;margin-top:22px;overflow:hidden}
+.shot-bar{display:flex;gap:14px;padding:9px 14px;border-bottom:1px solid var(--hair);
+  background:var(--band-soft);font-size:11px;font-weight:600;color:var(--ink-3)}
+.shot-bar span.on{color:var(--ink);border-bottom:2px solid var(--brass);padding-bottom:2px}
+.shot-body{padding:14px}
+.mini{width:100%;border-collapse:collapse;font-size:12px}
+.mini th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
+  color:var(--ink-3);text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule)}
+.mini th.r,.mini td.r{text-align:right}
+.mini td{padding:6px 8px;border-bottom:1px solid var(--hair)}
+.mini tr:nth-child(even) td{background:var(--band-soft)}
+.mini tr.g td{background:var(--band);font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase}
+.mini tr.t td{border-top:1px solid var(--ink);border-bottom:none;font-weight:700;background:none}
+.tag{display:inline-block;font-size:9px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.08em;padding:1px 5px;border:1px solid var(--rule);border-radius:2px;color:var(--ink-2)}
+.tag.b{color:var(--brass);border-color:var(--brass);background:var(--brass-bg)}
+.cap{font-size:13.5px;color:var(--ink-2);margin-top:14px;max-width:64ch;line-height:1.55}
+.cap b{color:var(--ink);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:44px}
+@media(max-width:840px){.two{grid-template-columns:1fr;gap:44px}}
+
+/* dark statement section */
+.dark{background:var(--ink);color:var(--paper);padding:92px 0}
+.dark .eyebrow{color:#8FA096}
+.dark h2{font-size:clamp(25px,3.4vw,38px);font-weight:700;letter-spacing:-.032em;
+  line-height:1.12;margin-top:12px;max-width:18ch}
+.dark h2 em{font-style:normal;color:#D8B45F}
+.dark p{font-size:16px;color:#B7C1B9;margin-top:16px;max-width:50ch;line-height:1.6}
+.dark .btn{background:var(--paper);color:var(--ink);border-color:var(--paper);margin-top:26px}
+.dark .btn:hover{background:#fff}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:840px){.dgrid{grid-template-columns:1fr;gap:38px}}
+.doc{background:#fff;color:var(--ink);padding:26px 26px 30px;box-shadow:0 18px 44px rgba(0,0,0,.34)}
+.doc .dh{border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:14px}
+.doc .dh h4{font-size:14px;font-weight:600;letter-spacing:-.015em}
+.doc .dh p{font-size:10px;color:var(--ink-3);margin-top:3px}
+.doc h5{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
+  margin:16px 0 0;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+.doc table{width:100%;border-collapse:collapse;font-size:11px}
+.doc td{padding:5px 4px;border-bottom:1px solid var(--hair)}
+.doc td.r{text-align:right}
+.doc tr.t td{border-top:1px solid var(--ink);border-bottom:none;font-weight:700;padding-top:6px}
+.dbl{border-top:2.5px double var(--ink);margin-top:2px}
+
+/* tiers */
+.tiers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:40px;border:1px solid var(--rule)}
+.tier{padding:28px 26px 30px}
+.tier:first-child{border-right:1px solid var(--rule);background:var(--band-soft)}
+.tier .h{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.tier:first-child .h{color:var(--brass)}
+.tier:last-child .h{color:var(--ink-3)}
+.tier h3{font-size:20px;font-weight:600;margin-top:9px;letter-spacing:-.02em}
+.tier ul{list-style:none;margin-top:16px}
+.tier li{font-size:14px;color:var(--ink-2);padding:6px 0 6px 19px;position:relative;line-height:1.45}
+.tier li:before{content:'';position:absolute;left:0;top:12px;width:8px;height:1.5px;background:var(--rule)}
+.tier:first-child li:before{background:var(--brass)}
+@media(max-width:760px){.tiers{grid-template-columns:1fr}
+  .tier:first-child{border-right:none;border-bottom:1px solid var(--rule)}}
+
+/* final */
+.final{border:2px solid var(--ink);padding:52px 34px;text-align:center;margin:0 0 20px}
+.final h2{font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.032em;line-height:1.14}
+.final p{font-size:15.5px;color:var(--ink-2);margin-top:13px;max-width:46ch;
+  margin-left:auto;margin-right:auto}
+.final .cta{margin:26px auto 0;justify-content:center}
+
+footer{border-top:1px solid var(--hair);padding:34px 0 46px;margin-top:70px}
+footer .fl{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;align-items:flex-start}
+footer .dis{font-size:11.5px;color:var(--ink-3);max-width:62ch;line-height:1.65}
+footer .fm{font-size:16px;font-weight:700;letter-spacing:-.03em}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .node,.arrow{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hbar">
+    <div class="mark">pivotext<i>.</i></div>
+    <div class="hlinks">
+      <a href="#how" class="nav">How it works</a>
+      <a href="#statement" class="nav">The statement</a>
+      <a href="#free" class="nav">What's free</a>
+      <a href="#join" class="btn">Join the beta</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">Free beta &middot; built for funded traders</div>
+  <h1>You know your payouts. Do you know your <em>net</em>?</h1>
+  <p class="sub">Every eval fee, reset and subscription, tracked against the account it belongs to.
+    At month end, one clean statement for your accountant.</p>
+  <form class="cta" id="f1">
+    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+    <button class="btn" type="submit">Join the beta</button>
+  </form>
+  <p class="cta-note">Free during beta. The ledger, receipt reading and your monthly statement stay free after.</p>
+</div>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="panel-top">
+      <div><div class="t">Tradeify $50K Advanced</div>
+           <div class="m">TF-01 &middot; opened Apr 3 &middot; funded, live</div></div>
+      <div class="eyebrow">One account, four charges, one payout</div>
+    </div>
+    <div class="chain" id="chain"></div>
+    <div class="panel-foot">
+      <div><div class="k">Cost to fund</div><div class="v num cost" id="v1">$0.00</div></div>
+      <div><div class="k">Paid out</div><div class="v num" id="v2">$0.00</div></div>
+      <div><div class="k">Actual net</div><div class="v num" id="v3">$0.00</div></div>
+    </div>
+  </div>
+  <p class="cap" style="margin-top:16px">Most traders would call this a <b>$2,140 month</b>.
+    It was a <b>$1,643 month</b>. The difference is four charges nobody wrote down.</p>
+</div>
+
+<section id="how">
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Why this exists</div>
+      <h2>Trading is the easy part to track. Everything around it isn't.</h2>
+    </div>
+    <div class="beats">
+      <div class="beat">
+        <div class="n">01</div>
+        <h3>$150 here. A $99 reset there.</h3>
+        <p>Eval fees go on a personal card at 11pm and never reach the books. By December
+           you've spent thousands you can't account for.</p>
+      </div>
+      <div class="beat">
+        <div class="n">02</div>
+        <h3>Three firms, three dashboards.</h3>
+        <p>Payouts land on different schedules through different processors. Nothing adds
+           them up, so you're copying numbers between tabs.</p>
+      </div>
+      <div class="beat">
+        <div class="n">03</div>
+        <h3>Then April arrives.</h3>
+        <p>Your accountant gets a folder of screenshots and bills you by the hour to make
+           sense of it. Half the deductions never get claimed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Inside Pivotext</div>
+      <h2>Three screens. That's the whole product.</h2>
+      <p>No trade journal, no analytics dashboard, no advice. It records what you spent
+         and what you were paid, and it hands that to your accountant.</p>
+    </div>
+
+    <div class="two">
+      <div>
+        <div class="shot">
+          <div class="shot-bar"><span class="on">Ledger</span><span>Accounts</span><span>Payouts</span><span>Statement</span></div>
+          <div class="shot-body">
+            <table class="mini">
+              <tr class="g"><td colspan="4">Direct account costs</td></tr>
+              <tr><td>Jul 2</td><td>Evaluation fee<br><span style="color:var(--ink-3);font-size:10px">Lucid · LT-01</span></td><td><span class="tag">Eval fee</span></td><td class="r num">253.82</td></tr>
+              <tr><td>Jul 3</td><td>Reset fee<br><span style="color:var(--ink-3);font-size:10px">Tradeify · TF-01</span></td><td><span class="tag">Reset</span></td><td class="r num">135.83</td></tr>
+              <tr class="g"><td colspan="4">Business overhead</td></tr>
+              <tr><td>Jul 15</td><td>Internet, business portion</td><td><span class="tag b">mixed use</span></td><td class="r num">68.99</td></tr>
+              <tr><td>Jul 17</td><td>34" monitor</td><td><span class="tag b">capital asset</span></td><td class="r num">429.00</td></tr>
+              <tr class="t"><td colspan="3">Total costs for period</td><td class="r num">1,878.94</td></tr>
+            </table>
+          </div>
+        </div>
+        <p class="cap"><b>Drop a receipt, it files itself.</b> Screenshot or PDF, Pivotext reads it,
+          works out whether it's an account cost or overhead, and shows you where it's going
+          before anything is booked. Items your accountant needs to decide on get flagged, not guessed.</p>
+      </div>
+
+      <div>
+        <div class="shot">
+          <div class="shot-bar"><span>Ledger</span><span class="on">Accounts</span><span>Payouts</span><span>Statement</span></div>
+          <div class="shot-body">
+            <table class="mini">
+              <tr><th>Account</th><th class="r">Cost to fund</th><th class="r">Paid out</th><th class="r">Net</th></tr>
+              <tr><td>Tradeify $50K<br><span style="color:var(--ink-3);font-size:10px">4 charges · live</span></td><td class="r num" style="color:var(--oxblood)">497.00</td><td class="r num">2,140.00</td><td class="r num">1,643.00</td></tr>
+              <tr><td>Topstep $150K<br><span style="color:var(--ink-3);font-size:10px">6 charges · live</span></td><td class="r num" style="color:var(--oxblood)">894.00</td><td class="r num">4,285.00</td><td class="r num">3,391.00</td></tr>
+              <tr><td>Topstep $50K<br><span style="color:var(--ink-3);font-size:10px">in progress</span></td><td class="r num" style="color:var(--oxblood)">149.00</td><td class="r num">—</td><td class="r num" style="color:var(--oxblood)">(149.00)</td></tr>
+              <tr><td>Lucid $100K<br><span style="color:var(--ink-3);font-size:10px">in progress</span></td><td class="r num" style="color:var(--oxblood)">185.00</td><td class="r num">—</td><td class="r num" style="color:var(--oxblood)">(185.00)</td></tr>
+              <tr class="t"><td>Lifetime</td><td class="r num">1,725.00</td><td class="r num">6,425.00</td><td class="r num">4,700.00</td></tr>
+            </table>
+          </div>
+        </div>
+        <p class="cap"><b>Every account keeps its whole history.</b> An eval that failed twice,
+          reset, passed and went live is one chain, not four unrelated charges. That's what makes
+          cost to fund a real number instead of a guess.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="statement">
+  <div class="wrap dgrid">
+    <div>
+      <div class="eyebrow">Month end</div>
+      <h2>One button. <em>One document.</em></h2>
+      <p>Income with the exchange rate used on every payout. Costs split by account and by
+         category. A short list of items your accountant needs to rule on, flagged rather than
+         decided. Plus a CSV they can import straight into Xero or QuickBooks.</p>
+      <p style="font-size:14.5px;color:#8FA096;margin-top:14px">Pivotext doesn't classify anything
+         or tell you what's deductible. It gets the numbers in front of the person qualified to decide.</p>
+      <a href="#join" class="btn">Join the beta</a>
+    </div>
+    <div class="doc" aria-hidden="true">
+      <div class="dh">
+        <h4>Statement of trading operations</h4>
+        <p>E A Santos Investments Inc. &middot; July 2026 &middot; reported in CAD</p>
+      </div>
+      <h5>Summary of operations</h5>
+      <table>
+        <tr><td>Payout income</td><td class="r num">8,809.29</td></tr>
+        <tr><td>Direct account costs</td><td class="r num">(798.51)</td></tr>
+        <tr><td>Business overhead</td><td class="r num">(1,080.43)</td></tr>
+        <tr class="t"><td>Net for the period</td><td class="r num">6,930.35</td></tr>
+      </table>
+      <div class="dbl"></div>
+      <h5>Income detail</h5>
+      <table>
+        <tr><td>Jul 11 &nbsp; Topstep</td><td class="r num">1,875.00 &times; 1.3705</td><td class="r num">2,569.69</td></tr>
+        <tr><td>Jul 24 &nbsp; Tradeify</td><td class="r num">2,140.00 &times; 1.3742</td><td class="r num">2,940.79</td></tr>
+        <tr><td>Jul 28 &nbsp; Topstep</td><td class="r num">2,410.00 &times; 1.3688</td><td class="r num">3,298.81</td></tr>
+      </table>
+      <h5>Items requiring your review</h5>
+      <table>
+        <tr><td style="border:none;padding-top:7px;font-size:10.5px;color:var(--ink-2)">
+          Internet at 60% business use &middot; monitor may require depreciation</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="free">
+  <div class="wrap">
+    <div class="shead">
+      <div class="eyebrow">Pricing</div>
+      <h2>Free while we're in beta. The core stays free after.</h2>
+      <p>We're not going to give you the product, wait for your books to live here,
+         then put it behind a paywall. Here's the line, decided now.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier">
+        <div class="h">Free, permanently</div>
+        <h3>Everything a solo trader needs</h3>
+        <ul>
+          <li>Unlimited accounts and firms</li>
+          <li>Receipt reading, up to 50 a month</li>
+          <li>Full lifecycle tracking and cost to fund</li>
+          <li>Monthly statement as PDF and CSV</li>
+          <li>One entity, current tax year</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="h">Paid, later</div>
+        <h3>For bigger operations</h3>
+        <ul>
+          <li>Multiple entities under one login</li>
+          <li>Multi-year history and prior-year restatements</li>
+          <li>An accountant seat with their own access</li>
+          <li>Bank and card feeds</li>
+          <li>Uncapped receipt reading and custom exports</li>
+        </ul>
+      </div>
+    </div>
+    <p class="cap" style="margin-top:18px">Beta users keep the paid tier free for a year once it exists.</p>
+  </div>
+</section>
+
+<section style="padding-top:0" id="join">
+  <div class="wrap">
+    <div class="final">
+      <h2>Find out what your year actually cost.</h2>
+      <p>Join the beta and put one month through it. If it doesn't tell you something
+         you didn't already know, walk away.</p>
+      <form class="cta" id="f2">
+        <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button class="btn" type="submit">Join the beta</button>
+      </form>
+      <p class="cta-note">No card. No spam. We'll email you once when it's ready.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap fl">
+    <div class="fm">pivotext<i style="color:var(--brass);font-style:normal">.</i></div>
+    <p class="dis">Pivotext is a record-keeping tool. It does not provide tax, accounting or legal
+      advice, and makes no determination as to the deductibility, characterization or timing of
+      any item. Talk to a qualified accountant about your situation. Records are stored encrypted
+      on Canadian infrastructure and are deleted on request.</p>
+  </div>
+</footer>
+
+<script>
+const chain = [
+  {stage:'Evaluation', fee:150, when:'Apr 3', out:'failed'},
+  {stage:'Reset',      fee:99,  when:'May 14', out:'failed'},
+  {stage:'Reset',      fee:99,  when:'Jul 3',  out:'passed'},
+  {stage:'Funded',     fee:149, when:'Jul 8',  out:'live', fund:true}
+];
+const usd = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const el = document.getElementById('chain');
+let cum = 0;
+el.innerHTML = chain.map((n,i)=>{
+  cum += n.fee;
+  return (i?'<div class="arrow" data-a="'+i+'">&#9656;</div>':'') +
+  `<div class="node${n.fund?' fund':''}" data-n="${i}">
+     <div class="box">
+       <div class="stage">${n.stage}</div>
+       <div class="fee num">${usd(n.fee)}</div>
+       <div class="when">${n.when}</div>
+       <div class="out ${n.out}">${n.out}</div>
+     </div>
+     <div class="cum num">cum <b>${usd(cum)}</b></div>
+   </div>`;
+}).join('');
+
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const count = (id, to, ms) => {
+  const node = document.getElementById(id);
+  if(reduce){ node.textContent = usd(to); return; }
+  const t0 = performance.now();
+  const step = t => {
+    const p = Math.min((t-t0)/ms, 1);
+    node.textContent = usd(to * (1-Math.pow(1-p,3)));
+    if(p<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+
+function play(){
+  const nodes = el.querySelectorAll('.node'), arrows = el.querySelectorAll('.arrow');
+  if(reduce){
+    nodes.forEach(n=>n.classList.add('on')); arrows.forEach(a=>a.classList.add('on'));
+  } else {
+    nodes.forEach((n,i)=> setTimeout(()=>n.classList.add('on'), 220*i));
+    arrows.forEach((a,i)=> setTimeout(()=>a.classList.add('on'), 220*i + 150));
+  }
+  const t = reduce ? 0 : 1000;
+  setTimeout(()=>{ count('v1',497,700); }, t);
+  setTimeout(()=>{ count('v2',2140,700); }, t+260);
+  setTimeout(()=>{ count('v3',1643,900); }, t+520);
+}
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(e=>{ if(e[0].isIntersecting){ play(); io.disconnect(); } },{threshold:.25});
+  io.observe(el);
+} else play();
+
+/* Paste your Formspree endpoint here. Until you do, the form logs to the
+   console instead of silently pretending to work. */
+const ENDPOINT = '';
+
+document.querySelectorAll('form').forEach(f=>{
+  f.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const input = f.querySelector('input[name="email"]');
+    const btn = f.querySelector('button');
+    const email = input.value.trim();
+    if(f.querySelector('[name="_gotcha"]').value) return;   // bot
+
+    if(!ENDPOINT){
+      console.warn('No ENDPOINT set — signup not saved:', email);
+      f.innerHTML = `<p class="said">Set ENDPOINT in the page source to start collecting signups.</p>`;
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Sending';
+    try{
+      const r = await fetch(ENDPOINT, {
+        method:'POST', headers:{'Accept':'application/json'},
+        body:new FormData(f)
+      });
+      if(!r.ok) throw new Error(r.status);
+      f.innerHTML = `<p class="said">You're on the list. We'll email ${email} once it's ready.</p>`;
+    }catch(err){
+      btn.disabled = false; btn.textContent = 'Join the beta';
+      let msg = f.parentNode.querySelector('.err');
+      if(!msg){
+        msg = document.createElement('p');
+        msg.className = 'cta-note err';
+        msg.style.color = 'var(--oxblood)';
+        f.parentNode.insertBefore(msg, f.nextSibling);
+      }
+      msg.textContent = "That didn't send. Try again, or email us directly.";
+    }
+  });
+});
+</script>
+</body>
+</html>
