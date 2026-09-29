@@ -3,523 +3,333 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pivotext — bookkeeping for funded traders</title>
-<meta name="description" content="Track every eval fee, reset and subscription against the account it belongs to. One clean statement for your accountant at month end.">
-<link rel="canonical" href="https://REPLACE-WITH-YOUR-DOMAIN/">
+<title>Pivotext — bookkeeping made easy for traders</title>
+<meta name="description" content="The business side of prop trading: every eval fee, reset, receipt and payout on one dashboard, converted to CAD and ready for your accountant at month end.">
+<link rel="canonical" href="https://pivotext.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pivotext">
 <meta property="og:title" content="You know your payouts. Do you know your net?">
-<meta property="og:description" content="Bookkeeping for funded traders. Every eval fee, reset and subscription tracked against the account it belongs to.">
-<meta property="og:image" content="https://REPLACE-WITH-YOUR-DOMAIN/og-image.png">
+<meta property="og:description" content="Bookkeeping made easy for traders. Every cost, receipt and payout organized for tax season.">
+<meta property="og:image" content="https://pivotext.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://REPLACE-WITH-YOUR-DOMAIN/">
+<meta property="og:url" content="https://pivotext.com/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="You know your payouts. Do you know your net?">
-<meta name="twitter:description" content="Bookkeeping for funded traders. Track what every account actually cost you.">
-<meta name="twitter:image" content="https://REPLACE-WITH-YOUR-DOMAIN/og-image.png">
+<meta name="twitter:description" content="Bookkeeping made easy for traders. Every cost, receipt and payout organized for tax season.">
+<meta name="twitter:image" content="https://pivotext.com/og-image.png">
 <meta name="theme-color" content="#F7F8F4">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231B2420'/%3E%3Ctext x='16' y='23' font-family='Archivo,Arial,sans-serif' font-size='21' font-weight='700' fill='%23F7F8F4' text-anchor='middle'%3Ec%3C/text%3E%3Ccircle cx='25' cy='24' r='2.4' fill='%238E6B15'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231B2420'/%3E%3Cline x1='12.2' y1='4' x2='12.2' y2='28' stroke='%23F7F8F4' stroke-width='1.3'/%3E%3Cpath d='M14.5 8.2h3.7a5.2 5.2 0 0 1 0 10.4h-3.7v-2.4h3.7a2.8 2.8 0 0 0 0-5.6h-3.7z' fill='%23F7F8F4'/%3E%3Crect x='9.8' y='8.2' width='4.8' height='15.6' fill='%23C9A032'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{
-  --paper:#F7F8F4; --band:#E4EBDD; --band-soft:#EFF3EA;
-  --ink:#1B2420; --ink-2:#5A655E; --ink-3:#8A948C;
-  --rule:#C7CFC1; --hair:#DDE3D7;
-  --oxblood:#7C2018; --brass:#8E6B15; --brass-bg:#F3EBD6;
-  --wrap:1080px;
-}
+:root{--paper:#F7F8F4;--band:#EEF2EA;--ink:#1B2420;--ink-2:#4E5953;--ink-3:#66706A;--rule:#D8DDD3;--brass:#8E6B15;--gold:#D6B25C;--ox:#7C2018;--grn:#1E6B45;--white:#FFFFFF}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;
-  font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
-.num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-.eyebrow{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--ink-3)}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.num{font-family:'IBM Plex Mono',monospace;font-feature-settings:"tnum"}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:10px;background:var(--ink);color:#fff;font-weight:600;font-size:15px;text-decoration:none;border:1.5px solid var(--ink);cursor:pointer;font-family:inherit}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn:hover{opacity:.9}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)}
 /* header */
-header{position:sticky;top:0;z-index:20;background:rgba(247,248,244,.93);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
-.hbar{display:flex;justify-content:space-between;align-items:center;height:58px}
-.mark{font-size:19px;font-weight:700;letter-spacing:-.03em}
-.mark i{color:var(--brass);font-style:normal}
-.hlinks{display:flex;gap:24px;align-items:center}
-.hlinks a{font-size:13.5px;font-weight:500;color:var(--ink-2);text-decoration:none}
-.hlinks a:hover{color:var(--ink)}
-.btn{display:inline-block;font-family:inherit;font-size:13.5px;font-weight:600;
-  padding:9px 18px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);
-  border-radius:2px;cursor:pointer;text-decoration:none;transition:background .15s}
-.btn:hover{background:#2C3A33}
-.btn.ghost{background:transparent;color:var(--ink)}
-.btn.ghost:hover{background:var(--band)}
-@media(max-width:700px){.hlinks a.nav{display:none}}
-
-/* hero */
-.hero{padding:74px 0 0}
-.hero h1{font-size:clamp(34px,5.6vw,60px);font-weight:700;letter-spacing:-.042em;
-  line-height:1.03;max-width:16ch}
-.hero h1 em{font-style:normal;color:var(--brass)}
-.hero .sub{font-size:clamp(15px,1.7vw,18px);color:var(--ink-2);max-width:52ch;
-  margin-top:20px;line-height:1.55}
-.cta{display:flex;gap:9px;margin-top:28px;max-width:440px;flex-wrap:wrap}
-.cta input{flex:1 1 210px;font-family:inherit;font-size:14.5px;padding:11px 13px;
-  border:1px solid var(--rule);background:#fff;border-radius:2px;color:var(--ink)}
-.cta .btn{padding:11px 22px;font-size:14px}
-.cta-note{font-size:12.5px;color:var(--ink-3);margin-top:11px}
-.said{font-size:14px;font-weight:600;color:var(--brass);margin-top:26px}
-
-/* chain panel — the signature */
-.panel{border:1px solid var(--rule);background:#fff;margin-top:56px}
-.panel-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-  padding:13px 18px;border-bottom:1px solid var(--rule);background:var(--band-soft);flex-wrap:wrap}
-.panel-top .t{font-size:14px;font-weight:600}
-.panel-top .m{font-size:11.5px;color:var(--ink-3);margin-top:1px}
-.chain{display:flex;align-items:stretch;padding:26px 18px 20px;overflow-x:auto}
-.node{flex:0 0 auto;min-width:126px;opacity:0;transform:translateY(6px)}
-.node.on{opacity:1;transform:none;transition:opacity .42s ease,transform .42s ease}
-.node .box{border:1px solid var(--rule);padding:11px 13px 12px;min-height:82px}
-.node.fund .box{border:1.5px solid var(--brass);background:var(--brass-bg)}
-.node .stage{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
-.node.fund .stage{color:var(--brass)}
-.node .fee{font-size:17px;font-weight:600;margin-top:6px;letter-spacing:-.015em}
-.node .when{font-size:10.5px;color:var(--ink-3);margin-top:3px}
-.node .out{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.09em;margin-top:6px}
-.out.failed{color:var(--oxblood)} .out.passed{color:var(--ink-2)} .out.live{color:var(--brass)}
-.arrow{flex:0 0 28px;display:flex;align-items:center;justify-content:center;
-  color:var(--rule);font-size:14px;padding-top:22px;opacity:0}
-.arrow.on{opacity:1;transition:opacity .3s}
-.cum{text-align:center;font-size:10.5px;color:var(--ink-3);padding-top:8px;
-  border-top:1px solid var(--hair);margin-top:9px}
-.cum b{color:var(--ink-2);font-weight:600}
-.panel-foot{display:flex;border-top:1px solid var(--rule);flex-wrap:wrap}
-.panel-foot div{flex:1 1 150px;padding:15px 18px;border-right:1px solid var(--hair)}
-.panel-foot div:last-child{border-right:none;background:var(--band-soft)}
-.panel-foot .k{font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
-.panel-foot .v{font-size:22px;font-weight:600;letter-spacing:-.025em;margin-top:4px}
-.panel-foot .v.cost{color:var(--oxblood)}
-
-/* sections */
-section{padding:88px 0}
-.shead{max-width:60ch}
-.shead h2{font-size:clamp(25px,3.4vw,36px);font-weight:700;letter-spacing:-.032em;
-  line-height:1.12;margin-top:12px}
-.shead p{font-size:16px;color:var(--ink-2);margin-top:14px;line-height:1.6}
-
-/* problem beats */
-.beats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:0;margin-top:44px;border-top:2px solid var(--ink)}
-.beat{padding:24px 22px 26px;border-right:1px solid var(--hair)}
-.beat:last-child{border-right:none}
-.beat .n{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--brass)}
-.beat h3{font-size:17px;font-weight:600;margin-top:10px;letter-spacing:-.015em}
-.beat p{font-size:14px;color:var(--ink-2);margin-top:8px;line-height:1.55}
-@media(max-width:760px){.beat{border-right:none;border-bottom:1px solid var(--hair)}
-  .beat:last-child{border-bottom:none}}
-
-/* previews */
-.shot{border:1px solid var(--rule);background:#fff;margin-top:22px;overflow:hidden}
-.shot-bar{display:flex;gap:14px;padding:9px 14px;border-bottom:1px solid var(--hair);
-  background:var(--band-soft);font-size:11px;font-weight:600;color:var(--ink-3)}
-.shot-bar span.on{color:var(--ink);border-bottom:2px solid var(--brass);padding-bottom:2px}
-.shot-body{padding:14px}
-.mini{width:100%;border-collapse:collapse;font-size:12px}
-.mini th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.11em;
-  color:var(--ink-3);text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule)}
-.mini th.r,.mini td.r{text-align:right}
-.mini td{padding:6px 8px;border-bottom:1px solid var(--hair)}
-.mini tr:nth-child(even) td{background:var(--band-soft)}
-.mini tr.g td{background:var(--band);font-size:9px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase}
-.mini tr.t td{border-top:1px solid var(--ink);border-bottom:none;font-weight:700;background:none}
-.tag{display:inline-block;font-size:9px;font-weight:600;text-transform:uppercase;
-  letter-spacing:.08em;padding:1px 5px;border:1px solid var(--rule);border-radius:2px;color:var(--ink-2)}
-.tag.b{color:var(--brass);border-color:var(--brass);background:var(--brass-bg)}
-.cap{font-size:13.5px;color:var(--ink-2);margin-top:14px;max-width:64ch;line-height:1.55}
-.cap b{color:var(--ink);font-weight:600}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:44px}
-@media(max-width:840px){.two{grid-template-columns:1fr;gap:44px}}
-
-/* dark statement section */
-.dark{background:var(--ink);color:var(--paper);padding:92px 0}
-.dark .eyebrow{color:#8FA096}
-.dark h2{font-size:clamp(25px,3.4vw,38px);font-weight:700;letter-spacing:-.032em;
-  line-height:1.12;margin-top:12px;max-width:18ch}
-.dark h2 em{font-style:normal;color:#D8B45F}
-.dark p{font-size:16px;color:#B7C1B9;margin-top:16px;max-width:50ch;line-height:1.6}
-.dark .btn{background:var(--paper);color:var(--ink);border-color:var(--paper);margin-top:26px}
-.dark .btn:hover{background:#fff}
-.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-@media(max-width:840px){.dgrid{grid-template-columns:1fr;gap:38px}}
-.doc{background:#fff;color:var(--ink);padding:26px 26px 30px;box-shadow:0 18px 44px rgba(0,0,0,.34)}
-.doc .dh{border-bottom:1.5px solid var(--ink);padding-bottom:9px;margin-bottom:14px}
-.doc .dh h4{font-size:14px;font-weight:600;letter-spacing:-.015em}
-.doc .dh p{font-size:10px;color:var(--ink-3);margin-top:3px}
-.doc h5{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;
-  margin:16px 0 0;padding-bottom:4px;border-bottom:1px solid var(--ink)}
-.doc table{width:100%;border-collapse:collapse;font-size:11px}
-.doc td{padding:5px 4px;border-bottom:1px solid var(--hair)}
-.doc td.r{text-align:right}
-.doc tr.t td{border-top:1px solid var(--ink);border-bottom:none;font-weight:700;padding-top:6px}
-.dbl{border-top:2.5px double var(--ink);margin-top:2px}
-
-/* tiers */
-.tiers{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:40px;border:1px solid var(--rule)}
-.tier{padding:28px 26px 30px}
-.tier:first-child{border-right:1px solid var(--rule);background:var(--band-soft)}
-.tier .h{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.tier:first-child .h{color:var(--brass)}
-.tier:last-child .h{color:var(--ink-3)}
-.tier h3{font-size:20px;font-weight:600;margin-top:9px;letter-spacing:-.02em}
-.tier ul{list-style:none;margin-top:16px}
-.tier li{font-size:14px;color:var(--ink-2);padding:6px 0 6px 19px;position:relative;line-height:1.45}
-.tier li:before{content:'';position:absolute;left:0;top:12px;width:8px;height:1.5px;background:var(--rule)}
-.tier:first-child li:before{background:var(--brass)}
-@media(max-width:760px){.tiers{grid-template-columns:1fr}
-  .tier:first-child{border-right:none;border-bottom:1px solid var(--rule)}}
-
-/* final */
-.final{border:2px solid var(--ink);padding:52px 34px;text-align:center;margin:0 0 20px}
-.final h2{font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.032em;line-height:1.14}
-.final p{font-size:15.5px;color:var(--ink-2);margin-top:13px;max-width:46ch;
-  margin-left:auto;margin-right:auto}
-.final .cta{margin:26px auto 0;justify-content:center}
-
-footer{border-top:1px solid var(--hair);padding:34px 0 46px;margin-top:70px}
-footer .fl{display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;align-items:flex-start}
-footer .dis{font-size:11.5px;color:var(--ink-3);max-width:62ch;line-height:1.65}
-footer .fm{font-size:16px;font-weight:700;letter-spacing:-.03em}
-
-@media(prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important}
-  .node,.arrow{opacity:1!important;transform:none!important}
+header.top{position:sticky;top:0;z-index:20;background:rgba(247,248,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.hbar{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.mark{display:flex;align-items:center;color:var(--ink);text-decoration:none}.mark svg{display:block;width:auto}
+nav.main{display:flex;align-items:center;gap:28px;font-size:15px;font-weight:500;color:var(--ink-2)}
+nav.main a{text-decoration:none}nav.main a:hover{color:var(--ink)}
+nav.main .btn{color:#fff;min-height:44px;padding:0 18px}
+.menu-btn{display:none;min-height:44px;min-width:44px;border:1.5px solid var(--rule);border-radius:10px;background:transparent;font:600 14px Archivo,sans-serif;color:var(--ink);padding:0 14px}
+@media(max-width:900px){
+ nav.main{display:none;position:absolute;top:72px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--rule);flex-direction:column;align-items:stretch;padding:12px 32px 20px;gap:4px}
+ nav.main.open{display:flex}
+ nav.main a{padding:12px 0}
+ nav.main .btn{margin-top:8px}
+ .menu-btn{display:inline-flex;align-items:center}
 }
+/* footer */
+footer.site{border-top:1px solid var(--rule);margin-top:96px;padding:40px 0 48px;font-size:14px;color:var(--ink-3)}
+.fgrid{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap}
+.fcol{display:flex;flex-direction:column;gap:10px}
+.ftag{color:var(--ink);font-weight:500}
+.flinks{display:flex;gap:22px;flex-wrap:wrap}.flinks a{text-decoration:none}.flinks a:hover{color:var(--ink)}
+.fnote{max-width:520px;font-size:12.5px;line-height:1.6}
+
+.hero{padding:72px 0 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:20px}
+.hero h1{font-size:clamp(40px,6vw,72px);line-height:1.02;font-weight:800;letter-spacing:-.04em;max-width:1040px}
+.hero h1 em{font-style:normal;color:var(--brass)}
+.hero p.lede{font-size:clamp(17px,2vw,19px);color:var(--ink-2);max-width:700px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+/* product demo */
+#product{padding:44px 0 0}
+.tabs{display:flex;gap:6px;padding:6px;background:#fff;border:1px solid var(--rule);border-radius:999px;width:max-content;max-width:100%;margin:0 auto 18px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;min-height:44px;padding:0 18px;border-radius:999px;border:none;background:transparent;color:var(--ink-2);font:600 14px Archivo,sans-serif;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+.app{display:flex;border-radius:18px;overflow:hidden;border:1px solid #C9D0C4;box-shadow:0 50px 90px -40px rgba(27,36,32,.45);background:var(--paper);min-height:720px;text-align:left}
+.side{width:236px;flex:none;background:var(--ink);color:#E9EDE9;display:flex;flex-direction:column;padding:22px 16px;gap:18px}
+.side .brand{display:flex;align-items:center;gap:10px;padding:0 6px;color:#F2F4F1}
+.side .brand svg{display:block}
+.entity{background:#26312C;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.entity small{font-size:11px;color:#9FAAA3}.entity b{font-size:13.5px}
+.side nav{display:flex;flex-direction:column;gap:4px}
+.side nav button{text-align:left;min-height:40px;padding:0 12px;border-radius:9px;border:none;background:transparent;color:#B8C2BB;font:500 14px Archivo,sans-serif;cursor:pointer}
+.side nav button[aria-current="true"]{background:#2F3B35;color:#fff;box-shadow:inset 3px 0 0 var(--gold)}
+.side .foot{margin-top:auto;font-size:11.5px;color:#9FAAA3;padding:0 6px}
+.pane{flex:1;min-width:0;padding:24px 26px}
+.phead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:14px}
+.phead h3{font-size:22px;font-weight:700;letter-spacing:-.015em}
+.phead p{font-size:13px;color:var(--ink-3)}
+.sample{font-size:12px;color:var(--ink-3);white-space:nowrap}
+.card{background:#fff;border:1px solid var(--rule);border-radius:12px}
+.pad{padding:16px 18px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.kpis.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kpi{display:flex;flex-direction:column;gap:6px}
+.kpi .l{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--ink-3)}
+.kpi .v{font-size:23px}
+.kpi .s{font-size:12px;color:var(--ink-3)}
+.kpi.dark{background:var(--ink);border-color:var(--ink)}.kpi.dark .l{color:#B7C1BA}.kpi.dark .v{color:#fff}.kpi.dark .s{color:var(--gold)}
+.neg{color:var(--ox)}.pos{color:var(--grn)}
+.two{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:12px}
+.two.rev{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.two.st{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.ctitle{display:flex;justify-content:space-between;font-size:14px;font-weight:700;margin-bottom:10px}.ctitle span{font-weight:400;font-size:12px;color:var(--ink-3)}
+.bars{display:flex;align-items:flex-end;gap:10px;height:200px;border-bottom:1px solid var(--rule)}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:4px}
+.bar i{display:block;width:100%;max-width:34px;border-radius:5px 5px 2px 2px}
+.bar small{font-size:10px;color:var(--ink-3)}
+.months{display:flex;gap:10px;margin-top:6px}.months span{flex:1;text-align:center;font-size:11px;color:var(--ink-3)}
+.spend{display:flex;flex-direction:column;gap:9px}
+.spend .row{display:flex;justify-content:space-between;font-size:12.5px}.spend .row em{font-style:normal;color:var(--ink-3)}
+.track{height:6px;border-radius:3px;background:var(--band)}.track i{display:block;height:6px;border-radius:3px}
+.tbl{overflow-x:auto}
+.tbl table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:620px}
+.tbl th{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--ink-3);text-align:left;padding:10px 14px;border-bottom:1px solid var(--rule)}
+.tbl td{padding:12px 14px;border-bottom:1px solid var(--rule)}
+.tbl .r{text-align:right}.tbl tr:last-child td{border-bottom:none}
+.tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.t-gold{color:var(--brass);background:#F4ECD8}.t-blue{color:#24536F;background:#E3EEF4}.t-red{color:var(--ox);background:#F5E6E6}.t-grn{color:var(--grn);background:#E4F0E8}.t-grey{color:var(--ink-3);background:#ECEEEA}
+.chain{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.chain div{border:1px solid var(--rule);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.chain b{font-size:11px;letter-spacing:.07em;color:var(--ink-3)}.chain .num{font-size:17px}.chain small{font-size:11.5px;color:var(--ink-3)}
+.drop{border:2px dashed #BFC8BB;border-radius:14px;background:var(--band);min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;margin-bottom:12px}
+.drop b{font-size:15px}.drop small{font-size:12.5px;color:var(--ink-3)}.drop small u{color:var(--brass);font-weight:600;text-decoration:none}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:7px 0;border-bottom:1px solid var(--rule)}.kv span:first-child{color:var(--ink-3)}
+.row2{display:flex;gap:8px;margin-top:10px}.row2 .btn{min-height:44px;font-size:14px}.row2 .btn:first-child{flex:1}
+.months-list .item{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:600}
+.months-list .item.on{background:var(--band)}
+.stmt .line{display:flex;justify-content:space-between;font-size:14px;padding:6px 0}
+.stmt .tot{border-top:2px solid var(--ink);font-weight:700;padding-top:10px}
+.flag{margin-top:8px;background:#FBF4E4;border:1px solid #E8D7AE;border-radius:9px;padding:10px 12px;font-size:12.5px;color:var(--ink-2)}
+.review .item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--rule)}
+.review .item b{display:block;font-size:13.5px}.review .item small{font-size:12px;color:var(--ink-3)}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--band);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--ink-2);flex:none}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.two,.two.rev,.two.st{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:900px){.side{display:none}.app{min-height:0}.pane{padding:18px}.chain{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis.three{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.kpis{grid-template-columns:minmax(0,1fr)}.bars{gap:5px}.bar small{display:none}}
+/* sections */
+section.block{padding:110px 0 0}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:32px;flex-wrap:wrap}
+.shead h2,h2.center{font-size:clamp(32px,4vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:680px}
+h2.center{text-align:center;margin:0 auto 28px;max-width:900px}
+.shead p{font-size:17px;color:var(--ink-2);max-width:520px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.feat{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.feat h3{font-size:20px;font-weight:700;letter-spacing:-.01em}.feat p{font-size:15px;color:var(--ink-2)}
+@media(max-width:900px){.grid3{grid-template-columns:minmax(0,1fr)}}
+.compare{background:#fff;border:1px solid var(--rule);border-radius:18px;overflow-x:auto;max-width:1120px;margin:0 auto}
+.compare table{width:100%;border-collapse:collapse;min-width:640px;font-size:15px}
+.compare th{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--ink-3);padding:16px 22px;border-bottom:1px solid var(--rule);text-align:center}
+.compare th:first-child{text-align:left}
+.compare td{padding:15px 22px;border-bottom:1px solid var(--rule);text-align:center}.compare td:first-child{text-align:left}
+.compare tr:last-child td{border-bottom:none}
+.compare .us{background:#F4ECD8}.compare th.us{color:var(--brass)}
+.yes{color:var(--grn);font-weight:700}.no{color:var(--ink-3)}
+.learn-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.lcard{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+.lcard small{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--brass)}
+.lcard h3{font-size:20px;font-weight:700;letter-spacing:-.01em}.lcard p{font-size:15px;color:var(--ink-2)}
+.lcard .more{margin-top:auto;font-weight:600;font-size:14px}
+a.lcard:hover{border-color:var(--ink)}
+.lcard.soon{background:transparent;border-style:dashed}
+@media(max-width:900px){.learn-cards{grid-template-columns:minmax(0,1fr)}}
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:1120px;margin:0 auto}
+.plan{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:32px;display:flex;flex-direction:column;gap:12px}
+.plan.main{border:2px solid var(--ink)}
+.plan small{font-size:12px;font-weight:700;letter-spacing:.12em}.plan b{font-size:24px}.plan ul{list-style:none;display:flex;flex-direction:column;gap:8px;color:var(--ink-2);font-size:15px}
+.plan li::before{content:"+ ";color:var(--grn);font-weight:700}
+@media(max-width:760px){.plans{grid-template-columns:minmax(0,1fr)}}
+.join{margin-top:90px;background:var(--ink);color:#fff;border-radius:26px;padding:clamp(32px,6vw,72px);display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.join h2{font-size:clamp(30px,4vw,48px);font-weight:800;letter-spacing:-.035em;line-height:1.1}
+.join p{color:#C4CCC6}
+form.cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:560px;width:100%}
+form.cta input[type=email]{flex:1 1 260px;min-height:50px;border-radius:10px;border:none;padding:0 16px;font:16px Archivo,sans-serif;color:var(--ink)}
+form.cta button{min-height:50px;padding:0 22px;border-radius:10px;border:none;background:var(--gold);color:#1A140A;font:700 15px Archivo,sans-serif;cursor:pointer}
+form.cta input[type=hidden]{display:none}
+.cta .consent{flex:1 1 100%;font-size:12px;line-height:1.5;color:#AEB8B0;text-align:left}
+.cta .optin{flex:1 1 100%;display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:#D5DBD6;text-align:left;cursor:pointer}
+.cta .optin input{flex:none;margin-top:3px;width:15px;height:15px;accent-color:var(--gold)}
+.said{font-size:16px;color:#fff}.said a{color:var(--gold)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap hbar">
-    <div class="mark">pivotext<i>.</i></div>
-    <div class="hlinks">
-      <a href="#how" class="nav">How it works</a>
-      <a href="#statement" class="nav">The statement</a>
-      <a href="#free" class="nav">What's free</a>
-      <a href="#join" class="btn">Join the beta</a>
-    </div>
-  </div>
-</header>
-
-<div class="wrap hero">
-  <div class="eyebrow">Free beta &middot; built for funded traders</div>
-  <h1>You know your payouts. Do you know your <em>net</em>?</h1>
-  <p class="sub">Every eval fee, reset and subscription, tracked against the account it belongs to.
-    At month end, one clean statement for your accountant.</p>
-  <form class="cta" id="f1">
-    <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
-    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-    <button class="btn" type="submit">Join the beta</button>
-  </form>
-  <p class="cta-note">Free during beta. The ledger, receipt reading and your monthly statement stay free after.</p>
-</div>
-
-<div class="wrap">
-  <div class="panel">
-    <div class="panel-top">
-      <div><div class="t">Tradeify $50K Advanced</div>
-           <div class="m">TF-01 &middot; opened Apr 3 &middot; funded, live</div></div>
-      <div class="eyebrow">One account, four charges, one payout</div>
-    </div>
-    <div class="chain" id="chain"></div>
-    <div class="panel-foot">
-      <div><div class="k">Cost to fund</div><div class="v num cost" id="v1">$0.00</div></div>
-      <div><div class="k">Paid out</div><div class="v num" id="v2">$0.00</div></div>
-      <div><div class="k">Actual net</div><div class="v num" id="v3">$0.00</div></div>
-    </div>
-  </div>
-  <p class="cap" style="margin-top:16px">Most traders would call this a <b>$2,140 month</b>.
-    It was a <b>$1,643 month</b>. The difference is four charges nobody wrote down.</p>
-</div>
-
-<section id="how">
-  <div class="wrap">
-    <div class="shead">
-      <div class="eyebrow">Why this exists</div>
-      <h2>Trading is the easy part to track. Everything around it isn't.</h2>
-    </div>
-    <div class="beats">
-      <div class="beat">
-        <div class="n">01</div>
-        <h3>$150 here. A $99 reset there.</h3>
-        <p>Eval fees go on a personal card at 11pm and never reach the books. By December
-           you've spent thousands you can't account for.</p>
-      </div>
-      <div class="beat">
-        <div class="n">02</div>
-        <h3>Three firms, three dashboards.</h3>
-        <p>Payouts land on different schedules through different processors. Nothing adds
-           them up, so you're copying numbers between tabs.</p>
-      </div>
-      <div class="beat">
-        <div class="n">03</div>
-        <h3>Then April arrives.</h3>
-        <p>Your accountant gets a folder of screenshots and bills you by the hour to make
-           sense of it. Half the deductions never get claimed.</p>
-      </div>
-    </div>
-  </div>
+<a class="sr" href="#product">Skip to the product</a>
+<header class="top"><div class="wrap hbar">
+<a class="mark" href="/" aria-label="Pivotext home"><svg class="wm" viewBox="-6 -12 771 124" height="19" role="img" aria-label="Pivotext" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,0) scale(1.0)"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M3.5,100 V3.5 H40 A23.5,23.5 0 0 1 40,50.5 H3.5"/><line x1="112" y1="-10" x2="112" y2="110" stroke="currentColor" stroke-width="3.8500000000000005"/><rect x="104" y="22" width="16" height="56" fill="#8E6B15"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M152,0 L188,100 L224,0"/><circle fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" cx="311" cy="50" r="46.5"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M397,3.5 H461 M429,0 V100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M557,3.5 H500.5 V96.5 H557 M500.5,50 H550"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M595,0 L659,100 M659,0 L595,100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M695,3.5 H759 M727,0 V100"/></g></svg></a>
+<button class="menu-btn" type="button" aria-expanded="false" aria-controls="mainnav">Menu</button>
+<nav class="main" id="mainnav" aria-label="Main"><a href="/#product">Product</a><a href="/#why">Why Pivotext</a><a href="/#compare">Compare</a><a href="/learn/">Learn</a><a href="/#pricing">Pricing</a><a class="btn" href="/#join">Join the beta</a></nav>
+</div></header>
+<main>
+<section class="wrap hero">
+<span class="eyebrow">Bookkeeping made easy for traders</span>
+<h1>You know your payouts. Do you know your <em>net</em>?</h1>
+<p class="lede">The business side of prop trading. Every eval fee, reset, receipt and payout on one dashboard, ready for tax season, with one clean statement for your accountant at month end.</p>
+<div class="ctas"><a class="btn" href="#join">Join the free beta</a><a class="btn ghost" href="#product">Explore the dashboard</a></div>
 </section>
-
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="shead">
-      <div class="eyebrow">Inside Pivotext</div>
-      <h2>Three screens. That's the whole product.</h2>
-      <p>No trade journal, no analytics dashboard, no advice. It records what you spent
-         and what you were paid, and it hands that to your accountant.</p>
-    </div>
-
-    <div class="two">
-      <div>
-        <div class="shot">
-          <div class="shot-bar"><span class="on">Ledger</span><span>Accounts</span><span>Payouts</span><span>Statement</span></div>
-          <div class="shot-body">
-            <table class="mini">
-              <tr class="g"><td colspan="4">Direct account costs</td></tr>
-              <tr><td>Jul 2</td><td>Evaluation fee<br><span style="color:var(--ink-3);font-size:10px">Lucid · LT-01</span></td><td><span class="tag">Eval fee</span></td><td class="r num">253.82</td></tr>
-              <tr><td>Jul 3</td><td>Reset fee<br><span style="color:var(--ink-3);font-size:10px">Tradeify · TF-01</span></td><td><span class="tag">Reset</span></td><td class="r num">135.83</td></tr>
-              <tr class="g"><td colspan="4">Business overhead</td></tr>
-              <tr><td>Jul 15</td><td>Internet, business portion</td><td><span class="tag b">mixed use</span></td><td class="r num">68.99</td></tr>
-              <tr><td>Jul 17</td><td>34" monitor</td><td><span class="tag b">capital asset</span></td><td class="r num">429.00</td></tr>
-              <tr class="t"><td colspan="3">Total costs for period</td><td class="r num">1,878.94</td></tr>
-            </table>
-          </div>
-        </div>
-        <p class="cap"><b>Drop a receipt, it files itself.</b> Screenshot or PDF, Pivotext reads it,
-          works out whether it's an account cost or overhead, and shows you where it's going
-          before anything is booked. Items your accountant needs to decide on get flagged, not guessed.</p>
-      </div>
-
-      <div>
-        <div class="shot">
-          <div class="shot-bar"><span>Ledger</span><span class="on">Accounts</span><span>Payouts</span><span>Statement</span></div>
-          <div class="shot-body">
-            <table class="mini">
-              <tr><th>Account</th><th class="r">Cost to fund</th><th class="r">Paid out</th><th class="r">Net</th></tr>
-              <tr><td>Tradeify $50K<br><span style="color:var(--ink-3);font-size:10px">4 charges · live</span></td><td class="r num" style="color:var(--oxblood)">497.00</td><td class="r num">2,140.00</td><td class="r num">1,643.00</td></tr>
-              <tr><td>Topstep $150K<br><span style="color:var(--ink-3);font-size:10px">6 charges · live</span></td><td class="r num" style="color:var(--oxblood)">894.00</td><td class="r num">4,285.00</td><td class="r num">3,391.00</td></tr>
-              <tr><td>Topstep $50K<br><span style="color:var(--ink-3);font-size:10px">in progress</span></td><td class="r num" style="color:var(--oxblood)">149.00</td><td class="r num">—</td><td class="r num" style="color:var(--oxblood)">(149.00)</td></tr>
-              <tr><td>Lucid $100K<br><span style="color:var(--ink-3);font-size:10px">in progress</span></td><td class="r num" style="color:var(--oxblood)">185.00</td><td class="r num">—</td><td class="r num" style="color:var(--oxblood)">(185.00)</td></tr>
-              <tr class="t"><td>Lifetime</td><td class="r num">1,725.00</td><td class="r num">6,425.00</td><td class="r num">4,700.00</td></tr>
-            </table>
-          </div>
-        </div>
-        <p class="cap"><b>Every account keeps its whole history.</b> An eval that failed twice,
-          reset, passed and went live is one chain, not four unrelated charges. That's what makes
-          cost to fund a real number instead of a guess.</p>
-      </div>
-    </div>
-  </div>
+<section id="product" class="wrap" aria-label="Product preview">
+<div class="tabs" role="tablist" aria-label="Dashboard pages"><button type="button" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" tabindex="0" data-tab="overview">Overview</button><button type="button" role="tab" id="tab-accounts" aria-controls="panel-accounts" aria-selected="false" tabindex="-1" data-tab="accounts">Accounts</button><button type="button" role="tab" id="tab-receipts" aria-controls="panel-receipts" aria-selected="false" tabindex="-1" data-tab="receipts">Drag &amp; drop</button><button type="button" role="tab" id="tab-payouts" aria-controls="panel-payouts" aria-selected="false" tabindex="-1" data-tab="payouts">Payouts &amp; FX</button><button type="button" role="tab" id="tab-statements" aria-controls="panel-statements" aria-selected="false" tabindex="-1" data-tab="statements">Monthly statements</button><button type="button" role="tab" id="tab-accountant" aria-controls="panel-accountant" aria-selected="false" tabindex="-1" data-tab="accountant">Accountant view</button></div>
+<div class="app"><aside class="side" aria-label="App menu preview"><div class="brand"><svg viewBox="40 -6 222 372" height="26" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><line x1="70" y1="0" x2="70" y2="360" stroke="currentColor" stroke-width="12"/><path fill="currentColor" d="M92,40 H160 A94,94 0 0 1 160,228 H92 V200 H160 A66,66 0 0 0 160,68 H92 Z"/><rect x="44" y="40" width="52" height="280" fill="#D6B25C"/></svg><svg class="wm" viewBox="-6 -12 771 124" height="13" role="img" aria-label="Pivotext" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,0) scale(1.0)"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M3.5,100 V3.5 H40 A23.5,23.5 0 0 1 40,50.5 H3.5"/><line x1="112" y1="-10" x2="112" y2="110" stroke="currentColor" stroke-width="3.8500000000000005"/><rect x="104" y="22" width="16" height="56" fill="#D6B25C"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M152,0 L188,100 L224,0"/><circle fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" cx="311" cy="50" r="46.5"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M397,3.5 H461 M429,0 V100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M557,3.5 H500.5 V96.5 H557 M500.5,50 H550"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M595,0 L659,100 M659,0 L595,100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M695,3.5 H759 M727,0 V100"/></g></svg></div>
+<div class="entity"><small>ENTITY</small><b>Sample Trader Inc.</b><small>Fiscal 2026 · CAD</small></div>
+<nav><button type="button" data-tab="overview" aria-current="true">Overview</button><button type="button" data-tab="accounts" aria-current="false">Accounts</button><button type="button" data-tab="receipts" aria-current="false">Drag &amp; drop</button><button type="button" data-tab="payouts" aria-current="false">Payouts &amp; FX</button><button type="button" data-tab="statements" aria-current="false">Monthly statements</button><button type="button" data-tab="accountant" aria-current="false">Accountant view</button></nav><div class="foot">Records stored in Canada</div></aside>
+<div class="pane"><div class="panel" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview"><div class="phead"><div><h3>Overview</h3><p>Your whole trading business, at a glance</p></div><span class="sample">Sample data</span></div><div class="kpis">
+<div class="card pad kpi"><span class="l">PAYOUTS · YTD</span><span class="v num">$26,480.00</span><span class="s">CAD, at Bank of Canada rates</span></div>
+<div class="card pad kpi"><span class="l">ACCOUNT COSTS · YTD</span><span class="v num neg">($6,215.40)</span><span class="s">Evals, resets, activation fees</span></div>
+<div class="card pad kpi"><span class="l">OVERHEAD · YTD</span><span class="v num neg">($3,904.60)</span><span class="s">Data, software, hardware</span></div>
+<div class="card pad kpi dark"><span class="l">NET · YTD</span><span class="v num">$16,360.00</span><span class="s">3 items to review</span></div></div>
+<div class="two"><div class="card pad"><div class="ctitle">Net by month <span>2026 · CAD</span></div><div class="bars" role="img" aria-label="Net by month, January to September 2026"><div class="bar"><small class="num">−$840</small><i style="height:29px;background:var(--ox)"></i></div><div class="bar"><small class="num">$1,210</small><i style="height:42px;background:var(--grn)"></i></div><div class="bar"><small class="num">$2,360</small><i style="height:82px;background:var(--grn)"></i></div><div class="bar"><small class="num">−$420</small><i style="height:15px;background:var(--ox)"></i></div><div class="bar"><small class="num">$3,150</small><i style="height:109px;background:var(--grn)"></i></div><div class="bar"><small class="num">$1,980</small><i style="height:68px;background:var(--grn)"></i></div><div class="bar"><small class="num">$4,630</small><i style="height:160px;background:var(--grn)"></i></div><div class="bar"><small class="num">$2,890</small><i style="height:100px;background:var(--grn)"></i></div><div class="bar"><small class="num">$1,400</small><i style="height:48px;background:var(--grn)"></i></div></div><div class="months"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span></div></div>
+<div class="card pad"><div class="ctitle">Where the money went <span>YTD</span></div><div class="spend"><div><div class="row"><span>Evaluations <em>· account</em></span><span class="num">$3,150.00</span></div><div class="track"><i style="width:100%;background:var(--ox)"></i></div></div><div><div class="row"><span>Resets <em>· account</em></span><span class="num">$1,782.00</span></div><div class="track"><i style="width:57%;background:var(--ox)"></i></div></div><div><div class="row"><span>Activation fees <em>· account</em></span><span class="num">$1,283.40</span></div><div class="track"><i style="width:41%;background:var(--ox)"></i></div></div><div><div class="row"><span>Data &amp; platforms <em>· overhead</em></span><span class="num">$1,620.00</span></div><div class="track"><i style="width:51%;background:var(--brass)"></i></div></div><div><div class="row"><span>Software <em>· overhead</em></span><span class="num">$894.60</span></div><div class="track"><i style="width:28%;background:var(--brass)"></i></div></div><div><div class="row"><span>Hardware <em>· overhead</em></span><span class="num">$1,390.00</span></div><div class="track"><i style="width:44%;background:var(--brass)"></i></div></div></div></div></div></div><div class="panel" role="tabpanel" id="panel-accounts" aria-labelledby="tab-accounts" hidden><div class="phead"><div><h3>Accounts</h3><p>Every account's true cost and net</p></div><span class="sample">Sample data</span></div><div class="card tbl" style="margin-bottom:12px"><table><thead><tr><th>ACCOUNT</th><th>FIRM</th><th>SIZE</th><th>STATUS</th><th class="r">COST TO FUND</th><th class="r">PAID OUT</th><th class="r">NET</th></tr></thead><tbody>
+<tr><td><b>TF-01</b></td><td>Tradeify Advanced</td><td>50K</td><td><span class="tag t-gold">FUNDED</span></td><td class="r num neg">($497.00)</td><td class="r num">$2,140.00</td><td class="r num pos"><b>$1,643.00</b></td></tr>
+<tr><td><b>TS-02</b></td><td>Topstep</td><td>100K</td><td><span class="tag t-gold">FUNDED</span></td><td class="r num neg">($894.00)</td><td class="r num">$4,285.00</td><td class="r num pos"><b>$3,391.00</b></td></tr>
+<tr><td><b>LC-01</b></td><td>Lucid Trading</td><td>50K</td><td><span class="tag t-blue">EVALUATION</span></td><td class="r num neg">($149.00)</td><td class="r num">—</td><td class="r num neg">($149.00)</td></tr>
+<tr><td><b>TF-03</b></td><td>Tradeify Growth</td><td>150K</td><td><span class="tag t-red">FAILED</span></td><td class="r num neg">($185.00)</td><td class="r num">—</td><td class="r num neg">($185.00)</td></tr>
+</tbody></table></div>
+<div class="card pad"><div class="ctitle">TF-01 · every charge, start to payout <span>USD, as charged</span></div><div class="chain">
+<div><b>EVALUATION</b><span class="num neg">$150.00</span><small>Apr 3 · failed</small></div><div><b>RESET</b><span class="num neg">$99.00</span><small>May 14 · failed</small></div><div><b>RESET</b><span class="num pos">$99.00</span><small>Jul 3 · passed</small></div><div><b>ACTIVATION</b><span class="num" style="color:var(--brass)">$149.00</span><small>Jul 8 · funded</small></div><div><b>PAYOUT</b><span class="num pos">+$2,140.00</span><small>Jul 24 · net $1,643</small></div></div></div></div><div class="panel" role="tabpanel" id="panel-receipts" aria-labelledby="tab-receipts" hidden><div class="phead"><div><h3>Drag &amp; drop</h3><p>Receipts read, suggested, then booked by you</p></div><span class="sample">Sample data</span></div><div class="two"><div>
+<div class="drop"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Drop receipts, invoices or payout emails</b><small>PNG, JPG, HEIC or PDF · or <u>browse files</u></small></div>
+<div class="card tbl"><table><tbody>
+<tr><td><b>topstep-invoice-aug.pdf</b></td><td>Evaluation · TS-04</td><td class="r num">$165.00</td><td class="r"><span class="tag t-blue">READING…</span></td></tr>
+<tr><td><b>tradeify-receipt-0703.pdf</b></td><td>Reset · TF-01</td><td class="r num">$99.00</td><td class="r"><span class="tag t-gold">NEEDS REVIEW</span></td></tr>
+<tr><td><b>rithmic-aug.png</b></td><td>Data feed · overhead</td><td class="r num">$20.00</td><td class="r"><span class="tag t-grn">BOOKED</span></td></tr>
+<tr><td><b>bestbuy-monitor.jpg</b></td><td>Hardware · flagged</td><td class="r num">$429.00</td><td class="r"><span class="tag t-grn">BOOKED</span></td></tr>
+</tbody></table></div></div>
+<div class="card pad"><div class="eyebrow" style="font-size:11px;letter-spacing:.09em">Suggested · nothing booked yet</div><h4 style="font-size:16px;margin:8px 0 6px">tradeify-receipt-0703.pdf</h4>
+<div class="kv"><span>Vendor</span><span>Tradeify</span></div><div class="kv"><span>Date</span><span>Jul 3, 2026</span></div><div class="kv"><span>Category</span><span>Reset fee</span></div><div class="kv"><span>Account</span><span>TF-01 · direct cost</span></div><div class="kv"><span>Amount</span><span class="num">$99.00 USD</span></div><div class="kv"><span>Bank of Canada rate</span><span class="num">1.3720</span></div><div class="kv"><span>In CAD</span><span class="num"><b>$135.83</b></span></div>
+<div class="row2"><button class="btn" type="button">Confirm and book</button><button class="btn ghost" type="button">Edit</button></div></div></div></div><div class="panel" role="tabpanel" id="panel-payouts" aria-labelledby="tab-payouts" hidden><div class="phead"><div><h3>Payouts &amp; FX</h3><p>USD payouts converted at Bank of Canada rates</p></div><span class="sample">Sample data</span></div><div class="kpis three">
+<div class="card pad kpi"><span class="l">PAYOUTS · JULY</span><span class="v num">$6,425.00 USD</span><span class="s">3 payouts, 2 firms</span></div>
+<div class="card pad kpi"><span class="l">IN CAD</span><span class="v num">$8,809.29</span><span class="s">Converted per payout date</span></div>
+<div class="card pad kpi"><span class="l">RATE SOURCE</span><span class="v">Bank of Canada</span><span class="s">Daily USD/CAD, saved on each entry</span></div></div>
+<div class="card tbl"><table><thead><tr><th>DATE</th><th>FIRM · ACCOUNT</th><th>METHOD</th><th class="r">USD</th><th class="r">RATE</th><th class="r">CAD</th></tr></thead><tbody>
+<tr><td>Jul 11</td><td>Topstep · TS-02</td><td>Rise</td><td class="r num">1,875.00</td><td class="r num">1.3705</td><td class="r num">2,569.69</td></tr>
+<tr><td>Jul 24</td><td>Tradeify · TF-01</td><td>Wire</td><td class="r num">2,140.00</td><td class="r num">1.3742</td><td class="r num">2,940.79</td></tr>
+<tr><td>Jul 30</td><td>Topstep · TS-02</td><td>Rise</td><td class="r num">2,410.00</td><td class="r num">1.3688</td><td class="r num">3,298.81</td></tr>
+<tr><td><b>Total</b></td><td></td><td></td><td class="r num"><b>6,425.00</b></td><td></td><td class="r num"><b>8,809.29</b></td></tr></tbody></table></div></div><div class="panel" role="tabpanel" id="panel-statements" aria-labelledby="tab-statements" hidden><div class="phead"><div><h3>Monthly statements</h3><p>One button. PDF and CSV for your accountant</p></div><span class="sample">Sample data</span></div><div class="two st"><div class="card months-list">
+<div class="item">September 2026 <span class="tag t-blue">IN PROGRESS</span></div><div class="item">August 2026 <span class="tag t-grn">READY</span></div><div class="item on">July 2026 <span class="tag t-grn">READY</span></div><div class="item">June 2026 <span class="tag t-grey">SENT</span></div><div class="item" style="border-bottom:none">May 2026 <span class="tag t-grey">SENT</span></div></div>
+<div class="card pad stmt" style="padding:22px 24px"><div class="phead" style="margin-bottom:10px;align-items:flex-start;flex-wrap:wrap"><div><h3 style="font-size:17px">Statement of trading operations</h3><p>Sample Trader Inc. · July 2026 · CAD</p></div><div class="row2" style="margin:0"><button class="btn" type="button" style="min-height:40px;font-size:13px">Download PDF</button><button class="btn ghost" type="button" style="min-height:40px;font-size:13px">Export CSV</button></div></div>
+<div class="line" style="border-top:1px solid var(--rule);padding-top:12px"><span>Payout income</span><span class="num">8,809.29</span></div><div class="line"><span>Direct account costs</span><span class="num neg">(798.51)</span></div><div class="line"><span>Business overhead</span><span class="num neg">(1,080.43)</span></div><div class="line tot"><span>Net for the period</span><span class="num">6,930.35</span></div>
+<div class="flag">2 items flagged for your accountant: a $429.00 monitor (may be a capital asset) and internet at 60% business use.</div></div></div></div><div class="panel" role="tabpanel" id="panel-accountant" aria-labelledby="tab-accountant" hidden><div class="phead"><div><h3>Accountant view</h3><p>Share read-only access and clear review flags</p></div><span class="sample">Sample data</span></div><div class="two rev"><div class="card pad" style="display:flex;flex-direction:column;gap:12px"><b style="font-size:14px">Shared with</b>
+<div style="display:flex;align-items:center;gap:12px"><span class="avatar">CPA</span><div><b style="font-size:14px">[Your accountant]</b><div style="font-size:12px;color:var(--ink-3)">Read-only · can clear review flags</div></div></div>
+<p style="font-size:13px;color:var(--ink-2)">Your accountant sees every entry, receipt and statement. They can't change your numbers.</p><button class="btn ghost" type="button" style="min-height:44px;font-size:14px">Invite another accountant</button></div>
+<div class="card review"><div style="padding:14px 16px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:700">Review items</div>
+<div class="item"><div><b>Monitor · $429.00</b><small>Flag: may be a capital asset</small></div><span class="tag t-gold">OPEN</span></div>
+<div class="item"><div><b>Internet · $114.98</b><small>Flag: mixed use, 60% business</small></div><span class="tag t-gold">OPEN</span></div>
+<div class="item"><div><b>Trading course · $249.00</b><small>Flag: education, confirm treatment</small></div><span class="tag t-gold">OPEN</span></div>
+<div class="item" style="border-bottom:none"><div><b>Rithmic data · $20.00</b><small>Cleared by accountant</small></div><span class="tag t-grn">CLEARED</span></div></div></div></div></div></div>
 </section>
-
-<section class="dark" id="statement">
-  <div class="wrap dgrid">
-    <div>
-      <div class="eyebrow">Month end</div>
-      <h2>One button. <em>One document.</em></h2>
-      <p>Income with the exchange rate used on every payout. Costs split by account and by
-         category. A short list of items your accountant needs to rule on, flagged rather than
-         decided. Plus a CSV they can import straight into Xero or QuickBooks.</p>
-      <p style="font-size:14.5px;color:#8FA096;margin-top:14px">Pivotext doesn't classify anything
-         or tell you what's deductible. It gets the numbers in front of the person qualified to decide.</p>
-      <a href="#join" class="btn">Join the beta</a>
-    </div>
-    <div class="doc" aria-hidden="true">
-      <div class="dh">
-        <h4>Statement of trading operations</h4>
-        <p>E A Santos Investments Inc. &middot; July 2026 &middot; reported in CAD</p>
-      </div>
-      <h5>Summary of operations</h5>
-      <table>
-        <tr><td>Payout income</td><td class="r num">8,809.29</td></tr>
-        <tr><td>Direct account costs</td><td class="r num">(798.51)</td></tr>
-        <tr><td>Business overhead</td><td class="r num">(1,080.43)</td></tr>
-        <tr class="t"><td>Net for the period</td><td class="r num">6,930.35</td></tr>
-      </table>
-      <div class="dbl"></div>
-      <h5>Income detail</h5>
-      <table>
-        <tr><td>Jul 11 &nbsp; Topstep</td><td class="r num">1,875.00 &times; 1.3705</td><td class="r num">2,569.69</td></tr>
-        <tr><td>Jul 24 &nbsp; Tradeify</td><td class="r num">2,140.00 &times; 1.3742</td><td class="r num">2,940.79</td></tr>
-        <tr><td>Jul 28 &nbsp; Topstep</td><td class="r num">2,410.00 &times; 1.3688</td><td class="r num">3,298.81</td></tr>
-      </table>
-      <h5>Items requiring your review</h5>
-      <table>
-        <tr><td style="border:none;padding-top:7px;font-size:10.5px;color:var(--ink-2)">
-          Internet at 60% business use &middot; monitor may require depreciation</td></tr>
-      </table>
-    </div>
-  </div>
+<section id="why" class="wrap block">
+<div class="shead"><h2>Built for the business side of trading.</h2><p>Journals analyze your trades. Pivotext keeps your books: every cost, payout and receipt organized for tax season, and the statement your accountant actually needs.</p></div>
+<div class="grid3">
+<div class="feat"><h3>Receipts, read and filed</h3><p>Drag in screenshots, PDFs and payout emails. Pivotext reads them and suggests where they belong. You confirm.</p></div>
+<div class="feat"><h3>Overhead, not just evals</h3><p>Data feeds, platforms, software, hardware and internet sit next to your account costs, split direct vs overhead.</p></div>
+<div class="feat"><h3>CAD done properly</h3><p>Every USD payout and charge converted at the Bank of Canada rate for its date, with the rate saved on the entry.</p></div>
+<div class="feat"><h3>Books for your corporation</h3><p>Keep separate books for yourself and your trading company under one login.</p></div>
+<div class="feat"><h3>Ready for tax season</h3><p>Items your accountant should look at are flagged with a plain reason, so nothing claimable gets missed.</p></div>
+<div class="feat"><h3>Stored in Canada</h3><p>Your records and receipt files live on Canadian servers. Pivotext never asks for your trading logins.</p></div></div>
 </section>
-
-<section id="free">
-  <div class="wrap">
-    <div class="shead">
-      <div class="eyebrow">Pricing</div>
-      <h2>Free while we're in beta. The core stays free after.</h2>
-      <p>We're not going to give you the product, wait for your books to live here,
-         then put it behind a paywall. Here's the line, decided now.</p>
-    </div>
-    <div class="tiers">
-      <div class="tier">
-        <div class="h">Free, permanently</div>
-        <h3>Everything a solo trader needs</h3>
-        <ul>
-          <li>Unlimited accounts and firms</li>
-          <li>Receipt reading, up to 50 a month</li>
-          <li>Full lifecycle tracking and cost to fund</li>
-          <li>Monthly statement as PDF and CSV</li>
-          <li>One entity, current tax year</li>
-        </ul>
-      </div>
-      <div class="tier">
-        <div class="h">Paid, later</div>
-        <h3>For bigger operations</h3>
-        <ul>
-          <li>Multiple entities under one login</li>
-          <li>Multi-year history and prior-year restatements</li>
-          <li>An accountant seat with their own access</li>
-          <li>Bank and card feeds</li>
-          <li>Uncapped receipt reading and custom exports</li>
-        </ul>
-      </div>
-    </div>
-    <p class="cap" style="margin-top:18px">Beta users keep the paid tier free for a year once it exists.</p>
-  </div>
+<section id="compare" class="wrap block">
+<h2 class="center">Trade journals track trades. Pivotext keeps the books.</h2>
+<div class="compare"><table><thead><tr><th scope="col"><span class="sr">Feature</span></th><th scope="col">TRADE JOURNALS</th><th scope="col">PROP SPEND TRACKERS</th><th scope="col" class="us">PIVOTEXT</th></tr></thead><tbody><tr><td>Trade performance and journaling</td><td><span class="yes">Yes</span></td><td><span class="no">—</span></td><td class="us"><span class="no">—</span></td></tr><tr><td>Eval, reset and payout totals</td><td><span class="no">—</span></td><td><span class="yes">Yes</span></td><td class="us"><span class="yes">Yes</span></td></tr><tr><td>Receipts and invoices read and filed</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td class="us"><span class="yes">Yes</span></td></tr><tr><td>Business overhead: data, software, hardware</td><td><span class="no">—</span></td><td><span class="no">Partly</span></td><td class="us"><span class="yes">Yes</span></td></tr><tr><td>USD payouts in CAD at Bank of Canada rates</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td class="us"><span class="yes">Yes</span></td></tr><tr><td>Separate books for your corporation</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td class="us"><span class="yes">Yes</span></td></tr><tr><td>Items flagged for your accountant to review</td><td><span class="no">—</span></td><td><span class="no">—</span></td><td class="us"><span class="yes">Yes</span></td></tr><tr><td>Month-end statement: PDF and CSV for Xero or QuickBooks</td><td><span class="no">—</span></td><td><span class="no">Partly</span></td><td class="us"><span class="yes">Yes</span></td></tr></tbody></table></div>
 </section>
-
-<section style="padding-top:0" id="join">
-  <div class="wrap">
-    <div class="final">
-      <h2>Find out what your year actually cost.</h2>
-      <p>Join the beta and put one month through it. If it doesn't tell you something
-         you didn't already know, walk away.</p>
-      <form class="cta" id="f2">
-        <input type="email" name="email" placeholder="you@email.com" aria-label="Email address" required>
-    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
-        <button class="btn" type="submit">Join the beta</button>
-      </form>
-      <p class="cta-note">No card. No spam. We'll email you once when it's ready.</p>
-    </div>
-  </div>
+<section id="learn" class="wrap block">
+<div class="shead"><h2>Know what you can claim before tax season.</h2><p>Plain-language guides to the business side of trading in Canada, linked to the official Canada Revenue Agency sources. <a href="/learn/">All guides</a></p></div>
+<div class="learn-cards">
+<a class="lcard" href="/learn/equipment-and-capital-cost-allowance.html"><small>EQUIPMENT</small><h3>Why your new computer isn't a one-year write-off</h3><p>How capital cost allowance spreads equipment costs over several years, with a worked example.</p><span class="more">Read the guide →</span></a>
+<div class="lcard soon"><small>COMING SOON</small><h3>Mixed-use costs: home office, internet and phone</h3><p>How the business-use percentage works, and what your accountant will ask.</p></div>
+<div class="lcard soon"><small>COMING SOON</small><h3>USD payouts: which exchange rate to use</h3><p>Why the rate matters, and how to keep a clean record of it.</p></div></div>
 </section>
-
-<footer>
-  <div class="wrap fl">
-    <div class="fm">pivotext<i style="color:var(--brass);font-style:normal">.</i></div>
-    <p class="dis">Pivotext is a record-keeping tool. It does not provide tax, accounting or legal
-      advice, and makes no determination as to the deductibility, characterization or timing of
-      any item. Talk to a qualified accountant about your situation. Records are stored encrypted
-      on Canadian infrastructure and are deleted on request.</p>
-  </div>
-</footer>
-
+<section id="pricing" class="wrap block">
+<h2 class="center">Free while we're in beta. The core stays free after.</h2>
+<div class="plans">
+<div class="plan main"><small style="color:var(--grn)">FREE, PERMANENTLY</small><b>Everything a solo trader needs</b><ul><li>Unlimited accounts and firms</li><li>Receipt reading, up to 50 a month</li><li>Full account history and net per account</li><li>Monthly statement as PDF and CSV</li></ul></div>
+<div class="plan"><small style="color:var(--brass)">PAID, LATER</small><b>For bigger operations</b><ul><li>Multiple entities under one login</li><li>Multi-year history and year-end packs</li><li>An accountant seat with review access</li><li>Bank feeds and unlimited receipts</li></ul><span style="font-size:14px;color:var(--ink-3)">Beta users get the paid tier free for a year.</span></div></div>
+</section>
+<section id="join" class="wrap"><div class="join">
+<h2>Find out what your year actually cost.</h2><p>Join the beta and put one month through it.</p>
+<form class="cta" novalidate><label class="sr" for="email">Email</label><input id="email" type="email" name="email" placeholder="you@email.com" required autocomplete="email"><button type="submit">Join the beta</button>
+<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+<input type="hidden" name="source" value="home"><input type="hidden" name="consent_wording" value="beta-2026-09-28"><input type="hidden" name="submitted_at" value="">
+<p class="consent">By joining the beta, you agree that Pivotext Software Inc. may email you about your beta access. You can unsubscribe at any time. Pivotext Software Inc., support@pivotext.com, pivotext.com.</p>
+<label class="optin"><input type="checkbox" name="news_opt_in" value="yes"> Also send me product news and offers from Pivotext Software Inc. I can unsubscribe at any time.</label></form>
+<p style="font-size:13px">No card. We'll only email you about your beta access, unless you opt in to news.</p></div></section>
+</main>
+<footer class="site"><div class="wrap fgrid">
+<div class="fcol"><a class="mark" href="/" aria-label="Pivotext home"><svg class="wm" viewBox="-6 -12 771 124" height="15" role="img" aria-label="Pivotext" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,0) scale(1.0)"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M3.5,100 V3.5 H40 A23.5,23.5 0 0 1 40,50.5 H3.5"/><line x1="112" y1="-10" x2="112" y2="110" stroke="currentColor" stroke-width="3.8500000000000005"/><rect x="104" y="22" width="16" height="56" fill="#8E6B15"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M152,0 L188,100 L224,0"/><circle fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" cx="311" cy="50" r="46.5"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M397,3.5 H461 M429,0 V100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M557,3.5 H500.5 V96.5 H557 M500.5,50 H550"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M595,0 L659,100 M659,0 L595,100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M695,3.5 H759 M727,0 V100"/></g></svg></a><span class="ftag">Bookkeeping made easy for traders.</span><span>&copy; 2026 Pivotext Software Inc. &middot; Vancouver, British Columbia, Canada</span></div>
+<div class="fcol"><nav class="flinks" aria-label="Footer"><a href="/learn/">Learn</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="mailto:support@pivotext.com">Contact</a></nav>
+<p class="fnote">Pivotext organizes records. It isn't tax, accounting or investment advice, and it doesn't decide what's deductible. Not affiliated with any prop firm.</p></div>
+</div></footer>
 <script>
-const chain = [
-  {stage:'Evaluation', fee:150, when:'Apr 3', out:'failed'},
-  {stage:'Reset',      fee:99,  when:'May 14', out:'failed'},
-  {stage:'Reset',      fee:99,  when:'Jul 3',  out:'passed'},
-  {stage:'Funded',     fee:149, when:'Jul 8',  out:'live', fund:true}
-];
-const usd = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-const el = document.getElementById('chain');
-let cum = 0;
-el.innerHTML = chain.map((n,i)=>{
-  cum += n.fee;
-  return (i?'<div class="arrow" data-a="'+i+'">&#9656;</div>':'') +
-  `<div class="node${n.fund?' fund':''}" data-n="${i}">
-     <div class="box">
-       <div class="stage">${n.stage}</div>
-       <div class="fee num">${usd(n.fee)}</div>
-       <div class="when">${n.when}</div>
-       <div class="out ${n.out}">${n.out}</div>
-     </div>
-     <div class="cum num">cum <b>${usd(cum)}</b></div>
-   </div>`;
-}).join('');
-
-const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const count = (id, to, ms) => {
-  const node = document.getElementById(id);
-  if(reduce){ node.textContent = usd(to); return; }
-  const t0 = performance.now();
-  const step = t => {
-    const p = Math.min((t-t0)/ms, 1);
-    node.textContent = usd(to * (1-Math.pow(1-p,3)));
-    if(p<1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
-};
-
-function play(){
-  const nodes = el.querySelectorAll('.node'), arrows = el.querySelectorAll('.arrow');
-  if(reduce){
-    nodes.forEach(n=>n.classList.add('on')); arrows.forEach(a=>a.classList.add('on'));
-  } else {
-    nodes.forEach((n,i)=> setTimeout(()=>n.classList.add('on'), 220*i));
-    arrows.forEach((a,i)=> setTimeout(()=>a.classList.add('on'), 220*i + 150));
+/* Dashboard tabs */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs [role=tab]')), side=[].slice.call(document.querySelectorAll('.side [data-tab]'));
+  function show(id,focus){
+    tabs.forEach(function(t){var on=t.dataset.tab===id;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;if(on&&focus)t.focus();if(on)t.scrollIntoView({block:'nearest',inline:'nearest'});});
+    side.forEach(function(b){b.setAttribute('aria-current',b.dataset.tab===id);});
+    document.querySelectorAll('.panel').forEach(function(p){p.hidden=p.id!=='panel-'+id;});
   }
-  const t = reduce ? 0 : 1000;
-  setTimeout(()=>{ count('v1',497,700); }, t);
-  setTimeout(()=>{ count('v2',2140,700); }, t+260);
-  setTimeout(()=>{ count('v3',1643,900); }, t+520);
-}
-if('IntersectionObserver' in window){
-  const io = new IntersectionObserver(e=>{ if(e[0].isIntersecting){ play(); io.disconnect(); } },{threshold:.25});
-  io.observe(el);
-} else play();
-
-/* Paste your Formspree endpoint here. Until you do, the form logs to the
-   console instead of silently pretending to work. */
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){show(t.dataset.tab);});
+    t.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'?1:e.key==='ArrowLeft'?-1:0;if(!d)return;e.preventDefault();show(tabs[(i+d+tabs.length)%tabs.length].dataset.tab,true);});
+  });
+  side.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+})();
+/* Beta sign-up. Paste your Formspree endpoint, e.g. 'https://formspree.io/f/abcdwxyz'.
+   Until you do, visitors are offered a pre-filled email to support@pivotext.com instead. */
 const ENDPOINT = '';
-
-document.querySelectorAll('form').forEach(f=>{
-  f.addEventListener('submit', async e=>{
+document.querySelectorAll('form.cta').forEach(function(f){
+  f.addEventListener('submit', async function(e){
     e.preventDefault();
-    const input = f.querySelector('input[name="email"]');
-    const btn = f.querySelector('button');
-    const email = input.value.trim();
-    if(f.querySelector('[name="_gotcha"]').value) return;   // bot
-
+    var input=f.querySelector('input[name="email"]'), btn=f.querySelector('button'), email=input.value.trim();
+    if(!email || !input.checkValidity()){ input.focus(); input.reportValidity && input.reportValidity(); return; }
+    if(f.querySelector('[name="_gotcha"]').value) return;
+    var ts=f.querySelector('[name="submitted_at"]'); if(ts) ts.value=new Date().toISOString();
     if(!ENDPOINT){
-      console.warn('No ENDPOINT set — signup not saved:', email);
-      f.innerHTML = `<p class="said">Set ENDPOINT in the page source to start collecting signups.</p>`;
+      var subj=encodeURIComponent('Pivotext beta'), body=encodeURIComponent('Please add '+email+' to the Pivotext beta list.');
+      f.innerHTML='<p class="said">Almost there. <a href="mailto:support@pivotext.com?subject='+subj+'&body='+body+'">Send this email</a> to confirm your spot on the beta list.</p>';
       return;
     }
-    btn.disabled = true; btn.textContent = 'Sending';
+    btn.disabled=true; btn.textContent='Sending';
     try{
-      const r = await fetch(ENDPOINT, {
-        method:'POST', headers:{'Accept':'application/json'},
-        body:new FormData(f)
-      });
+      var r=await fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(f)});
       if(!r.ok) throw new Error(r.status);
-      f.innerHTML = `<p class="said">You're on the list. We'll email ${email} once it's ready.</p>`;
+      f.innerHTML='<p class="said">You\'re on the list. We\'ll email '+email.replace(/[<>&"]/g,'')+' once it\'s ready.</p>';
     }catch(err){
-      btn.disabled = false; btn.textContent = 'Join the beta';
-      let msg = f.parentNode.querySelector('.err');
-      if(!msg){
-        msg = document.createElement('p');
-        msg.className = 'cta-note err';
-        msg.style.color = 'var(--oxblood)';
-        f.parentNode.insertBefore(msg, f.nextSibling);
-      }
-      msg.textContent = "That didn't send. Try again, or email us directly.";
+      btn.disabled=false; btn.textContent='Join the beta';
+      var m=f.querySelector('.err'); if(!m){m=document.createElement('p');m.className='consent err';m.style.color='#F2B8B8';f.appendChild(m);}
+      m.innerHTML='That didn\'t send. Try again, or email <a href="mailto:support@pivotext.com">support@pivotext.com</a>.';
     }
   });
 });
+</script>
+<script>
+(function(){var b=document.querySelector('.menu-btn'),n=document.getElementById('mainnav');if(!b||!n)return;
+b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});
+n.addEventListener('click',function(e){if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false');}});})();
 </script>
 </body>
 </html>
