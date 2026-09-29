@@ -41,8 +41,9 @@ a{color:inherit}
 header.top{position:sticky;top:0;z-index:20;background:rgba(247,248,244,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
 .hbar{height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .mark{display:flex;align-items:center;color:var(--ink);text-decoration:none}.mark svg{display:block;width:auto}
-nav.main{display:flex;align-items:center;gap:28px;font-size:15px;font-weight:500;color:var(--ink-2)}
-nav.main a{text-decoration:none}nav.main a:hover{color:var(--ink)}
+nav.main{display:flex;align-items:center;gap:24px;font-size:15px;font-weight:500;color:var(--ink-2)}
+nav.main a{text-decoration:none}nav.main a:hover,nav.main a[aria-current="page"]{color:var(--ink)}nav.main a[aria-current="page"]{font-weight:600}
+@media(max-width:1060px) and (min-width:901px){nav.main{gap:18px;font-size:14px}}
 nav.main .btn{color:#fff;min-height:44px;padding:0 18px}
 .menu-btn{display:none;min-height:44px;min-width:44px;border:1.5px solid var(--rule);border-radius:10px;background:transparent;font:600 14px Archivo,sans-serif;color:var(--ink);padding:0 14px}
 @media(max-width:900px){
@@ -122,6 +123,15 @@ footer.site{border-top:1px solid var(--rule);margin-top:96px;padding:40px 0 48px
 .drop b{font-size:15px}.drop small{font-size:12.5px;color:var(--ink-3)}.drop small u{color:var(--brass);font-weight:600;text-decoration:none}
 .kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:7px 0;border-bottom:1px solid var(--rule)}.kv span:first-child{color:var(--ink-3)}
 .row2{display:flex;gap:8px;margin-top:10px}.row2 .btn{min-height:44px;font-size:14px}.row2 .btn:first-child{flex:1}
+.two.rcpt{grid-template-columns:minmax(0,8fr) minmax(0,4fr)}
+.queue{list-style:none;overflow:hidden}
+.queue li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--rule)}
+.queue li:last-child{border-bottom:none}
+.q1{display:flex;flex-direction:column;min-width:0}.q1 b{font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.q1 small{font-size:12px;color:var(--ink-3)}
+.q2{display:flex;align-items:center;gap:10px;flex:none}.q2 .num{font-size:13.5px}.q2 .tag{min-width:72px;text-align:center}
+.suggest{padding:16px}.suggest .eyebrow{font-size:10.5px;letter-spacing:.09em}.suggest h4{font-size:14px;margin:6px 0 4px;overflow-wrap:anywhere}
+.suggest .kv{font-size:12.5px;padding:6px 0}.suggest .row2 .btn{min-height:40px;font-size:13.5px;padding:0 14px}
+@media(max-width:1100px){.two.rcpt{grid-template-columns:minmax(0,1fr)}}
 .months-list .item{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--rule);font-size:14px;font-weight:600}
 .months-list .item.on{background:var(--band)}
 .stmt .line{display:flex;justify-content:space-between;font-size:14px;padding:6px 0}
@@ -184,7 +194,7 @@ form.cta input[type=hidden]{display:none}
 <header class="top"><div class="wrap hbar">
 <a class="mark" href="/" aria-label="Pivotext home"><svg class="wm" viewBox="-6 -12 771 124" height="19" role="img" aria-label="Pivotext" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,0) scale(1.0)"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M3.5,100 V3.5 H40 A23.5,23.5 0 0 1 40,50.5 H3.5"/><line x1="112" y1="-10" x2="112" y2="110" stroke="currentColor" stroke-width="3.8500000000000005"/><rect x="104" y="22" width="16" height="56" fill="#8E6B15"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M152,0 L188,100 L224,0"/><circle fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" cx="311" cy="50" r="46.5"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M397,3.5 H461 M429,0 V100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M557,3.5 H500.5 V96.5 H557 M500.5,50 H550"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M595,0 L659,100 M659,0 L595,100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M695,3.5 H759 M727,0 V100"/></g></svg></a>
 <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mainnav">Menu</button>
-<nav class="main" id="mainnav" aria-label="Main"><a href="/#product">Product</a><a href="/#why">Why Pivotext</a><a href="/#compare">Compare</a><a href="/learn/">Learn</a><a href="/#pricing">Pricing</a><a class="btn" href="/#join">Join the beta</a></nav>
+<nav class="main" id="mainnav" aria-label="Main"><a href="/#product">Product</a><a href="/#why">Why Pivotext</a><a href="/#compare">Compare</a><a href="/learn/">Learn</a><a href="/#pricing">Pricing</a><a href="/contact.html">Contact</a><a class="btn" href="/#join">Join the beta</a></nav>
 </div></header>
 <main>
 <section class="wrap hero">
@@ -211,17 +221,17 @@ form.cta input[type=hidden]{display:none}
 <tr><td><b>TF-03</b></td><td>Tradeify Growth</td><td>150K</td><td><span class="tag t-red">FAILED</span></td><td class="r num neg">($185.00)</td><td class="r num">—</td><td class="r num neg">($185.00)</td></tr>
 </tbody></table></div>
 <div class="card pad"><div class="ctitle">TF-01 · every charge, start to payout <span>USD, as charged</span></div><div class="chain">
-<div><b>EVALUATION</b><span class="num neg">$150.00</span><small>Apr 3 · failed</small></div><div><b>RESET</b><span class="num neg">$99.00</span><small>May 14 · failed</small></div><div><b>RESET</b><span class="num pos">$99.00</span><small>Jul 3 · passed</small></div><div><b>ACTIVATION</b><span class="num" style="color:var(--brass)">$149.00</span><small>Jul 8 · funded</small></div><div><b>PAYOUT</b><span class="num pos">+$2,140.00</span><small>Jul 24 · net $1,643</small></div></div></div></div><div class="panel" role="tabpanel" id="panel-receipts" aria-labelledby="tab-receipts" hidden><div class="phead"><div><h3>Drag &amp; drop</h3><p>Receipts read, suggested, then booked by you</p></div><span class="sample">Sample data</span></div><div class="two"><div>
+<div><b>EVALUATION</b><span class="num neg">$150.00</span><small>Apr 3 · failed</small></div><div><b>RESET</b><span class="num neg">$99.00</span><small>May 14 · failed</small></div><div><b>RESET</b><span class="num pos">$99.00</span><small>Jul 3 · passed</small></div><div><b>ACTIVATION</b><span class="num" style="color:var(--brass)">$149.00</span><small>Jul 8 · funded</small></div><div><b>PAYOUT</b><span class="num pos">+$2,140.00</span><small>Jul 24 · net $1,643</small></div></div></div></div><div class="panel" role="tabpanel" id="panel-receipts" aria-labelledby="tab-receipts" hidden><div class="phead"><div><h3>Drag &amp; drop</h3><p>Receipts read, suggested, then booked by you</p></div><span class="sample">Sample data</span></div><div class="two rcpt"><div>
 <div class="drop"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg><b>Drop receipts, invoices or payout emails</b><small>PNG, JPG, HEIC or PDF · or <u>browse files</u></small></div>
-<div class="card tbl"><table><tbody>
-<tr><td><b>topstep-invoice-aug.pdf</b></td><td>Evaluation · TS-04</td><td class="r num">$165.00</td><td class="r"><span class="tag t-blue">READING…</span></td></tr>
-<tr><td><b>tradeify-receipt-0703.pdf</b></td><td>Reset · TF-01</td><td class="r num">$99.00</td><td class="r"><span class="tag t-gold">NEEDS REVIEW</span></td></tr>
-<tr><td><b>rithmic-aug.png</b></td><td>Data feed · overhead</td><td class="r num">$20.00</td><td class="r"><span class="tag t-grn">BOOKED</span></td></tr>
-<tr><td><b>bestbuy-monitor.jpg</b></td><td>Hardware · flagged</td><td class="r num">$429.00</td><td class="r"><span class="tag t-grn">BOOKED</span></td></tr>
-</tbody></table></div></div>
-<div class="card pad"><div class="eyebrow" style="font-size:11px;letter-spacing:.09em">Suggested · nothing booked yet</div><h4 style="font-size:16px;margin:8px 0 6px">tradeify-receipt-0703.pdf</h4>
-<div class="kv"><span>Vendor</span><span>Tradeify</span></div><div class="kv"><span>Date</span><span>Jul 3, 2026</span></div><div class="kv"><span>Category</span><span>Reset fee</span></div><div class="kv"><span>Account</span><span>TF-01 · direct cost</span></div><div class="kv"><span>Amount</span><span class="num">$99.00 USD</span></div><div class="kv"><span>Bank of Canada rate</span><span class="num">1.3720</span></div><div class="kv"><span>In CAD</span><span class="num"><b>$135.83</b></span></div>
-<div class="row2"><button class="btn" type="button">Confirm and book</button><button class="btn ghost" type="button">Edit</button></div></div></div></div><div class="panel" role="tabpanel" id="panel-payouts" aria-labelledby="tab-payouts" hidden><div class="phead"><div><h3>Payouts &amp; FX</h3><p>USD payouts converted at Bank of Canada rates</p></div><span class="sample">Sample data</span></div><div class="kpis three">
+<ul class="card queue">
+<li><div class="q1"><b>topstep-invoice-aug.pdf</b><small>Evaluation · TS-04</small></div><div class="q2"><span class="num">$165.00</span><span class="tag t-blue">READING</span></div></li>
+<li><div class="q1"><b>tradeify-receipt-0703.pdf</b><small>Reset · TF-01</small></div><div class="q2"><span class="num">$99.00</span><span class="tag t-gold">REVIEW</span></div></li>
+<li><div class="q1"><b>rithmic-aug.png</b><small>Data feed · overhead</small></div><div class="q2"><span class="num">$20.00</span><span class="tag t-grn">BOOKED</span></div></li>
+<li><div class="q1"><b>bestbuy-monitor.jpg</b><small>Hardware · flagged for review</small></div><div class="q2"><span class="num">$429.00</span><span class="tag t-grn">BOOKED</span></div></li>
+</ul></div>
+<div class="card suggest"><div class="eyebrow">Suggested · not booked yet</div><h4>tradeify-receipt-0703.pdf</h4>
+<div class="kv"><span>Vendor</span><span>Tradeify</span></div><div class="kv"><span>Date</span><span>Jul 3, 2026</span></div><div class="kv"><span>Category</span><span>Reset fee</span></div><div class="kv"><span>Account</span><span>TF-01 · direct</span></div><div class="kv"><span>Amount</span><span class="num">$99.00 USD</span></div><div class="kv"><span>BoC rate</span><span class="num">1.3720</span></div><div class="kv"><span>In CAD</span><span class="num"><b>$135.83</b></span></div>
+<div class="row2"><button class="btn" type="button">Confirm</button><button class="btn ghost" type="button">Edit</button></div></div></div></div><div class="panel" role="tabpanel" id="panel-payouts" aria-labelledby="tab-payouts" hidden><div class="phead"><div><h3>Payouts &amp; FX</h3><p>USD payouts converted at Bank of Canada rates</p></div><span class="sample">Sample data</span></div><div class="kpis three">
 <div class="card pad kpi"><span class="l">PAYOUTS · JULY</span><span class="v num">$6,425.00 USD</span><span class="s">3 payouts, 2 firms</span></div>
 <div class="card pad kpi"><span class="l">IN CAD</span><span class="v num">$8,809.29</span><span class="s">Converted per payout date</span></div>
 <div class="card pad kpi"><span class="l">RATE SOURCE</span><span class="v">Bank of Canada</span><span class="s">Daily USD/CAD, saved on each entry</span></div></div>
@@ -280,7 +290,7 @@ form.cta input[type=hidden]{display:none}
 </main>
 <footer class="site"><div class="wrap fgrid">
 <div class="fcol"><a class="mark" href="/" aria-label="Pivotext home"><svg class="wm" viewBox="-6 -12 771 124" height="15" role="img" aria-label="Pivotext" xmlns="http://www.w3.org/2000/svg"><g transform="translate(0,0) scale(1.0)"><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M3.5,100 V3.5 H40 A23.5,23.5 0 0 1 40,50.5 H3.5"/><line x1="112" y1="-10" x2="112" y2="110" stroke="currentColor" stroke-width="3.8500000000000005"/><rect x="104" y="22" width="16" height="56" fill="#8E6B15"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M152,0 L188,100 L224,0"/><circle fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" cx="311" cy="50" r="46.5"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M397,3.5 H461 M429,0 V100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M557,3.5 H500.5 V96.5 H557 M500.5,50 H550"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M595,0 L659,100 M659,0 L595,100"/><path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter" d="M695,3.5 H759 M727,0 V100"/></g></svg></a><span class="ftag">Bookkeeping made easy for traders.</span><span>&copy; 2026 Pivotext Software Inc. &middot; Vancouver, British Columbia, Canada</span></div>
-<div class="fcol"><nav class="flinks" aria-label="Footer"><a href="/learn/">Learn</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="mailto:support@pivotext.com">Contact</a></nav>
+<div class="fcol"><nav class="flinks" aria-label="Footer"><a href="/learn/">Learn</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/contact.html">Contact us</a></nav>
 <p class="fnote">Pivotext organizes records. It isn't tax, accounting or investment advice, and it doesn't decide what's deductible. Not affiliated with any prop firm.</p></div>
 </div></footer>
 <script>
